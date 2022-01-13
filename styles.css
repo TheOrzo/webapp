@@ -6,7 +6,8 @@
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: #292929;
 }
 
 .lsd-container {
@@ -26,7 +27,6 @@ body {
   display: flex;
   grid-area: "nav";
   width: 100%;
-  background: #292929;
 }
 
 .lsd-navigation-item {
@@ -92,7 +92,7 @@ body {
 }
 
 .lsd-navigation-item:target {
-  background-color: #1d641d;
+  color: #4ecc4e;
 }
 
 .lsd-navigation-item:target span {
@@ -111,6 +111,7 @@ main {
         -ms-flex-direction: column;
             flex-direction: column;
     width: auto;
+    max-height: 20rem;
   }
   .lsd-navigation-item {
     -webkit-box-orient: horizontal;
@@ -124,7 +125,6 @@ main {
     padding-left: 1rem;
   }
   .lsd-navigation-item span {
-    font-size: 1.1rem;
     padding-left: .5rem;
     display: block;
   }

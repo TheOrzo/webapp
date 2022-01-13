@@ -12,7 +12,8 @@ $lsd-on-background: white;
 
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: darken($lsd-background, 5%);
 }
 
 .lsd-container {
@@ -27,7 +28,6 @@ body {
     display: flex;
     grid-area: "nav";
     width: 100%;
-    background: darken($lsd-background, 5%);
 
     &-item {
         flex: 1;
@@ -60,7 +60,7 @@ body {
         }
 
         &:target {
-            background-color: $lsd-primary;
+            color: lighten($lsd-primary, 30%);
             span {
                 display: block;
             }
@@ -79,6 +79,7 @@ main {
     .lsd-navigation {
         flex-direction: column;
         width: auto;
+        max-height: 20rem;
 
         &-item {
             flex-direction: row;
@@ -86,7 +87,6 @@ main {
             justify-content: flex-start;
             padding-left: 1rem;
             span {
-                font-size: 1.1rem;
                 padding-left: .5rem;
                 display: block;
             }
