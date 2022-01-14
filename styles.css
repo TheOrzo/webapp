@@ -190,6 +190,9 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   gap: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -202,14 +205,15 @@ footer {
 
 .lsd-scene-item {
   width: 100%;
+  max-width: 25rem;
   border-radius: 3px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 2rem auto;
       grid-template-columns: 2rem auto;
   overflow: hidden;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(10%, var(--color)), color-stop(60%, #424242));
-  background: linear-gradient(0deg, var(--color) 10%, #424242 60%);
+  background: -webkit-gradient(linear, left bottom, left top, from(var(--color)), color-stop(20%, #424242));
+  background: linear-gradient(0deg, var(--color) 0%, #424242 20%);
 }
 
 .lsd-scene-item-drag {
@@ -241,5 +245,10 @@ footer {
   grid-column: span 2;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(35%, #090979), to(rgba(0, 212, 255, 0)));
   background: linear-gradient(0deg, #090979 35%, rgba(0, 212, 255, 0) 100%);
+}
+
+.lsd-scene-item .dummy {
+  opacity: 0;
+  height: 0;
 }
 /*# sourceMappingURL=styles.css.map */
