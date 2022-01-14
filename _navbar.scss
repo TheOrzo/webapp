@@ -1,7 +1,7 @@
 .lsd-container {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 4rem auto;
+    grid-template-rows: 3rem auto;
     grid-template-areas: "nav" "main";
     min-height: 100vh;
 }
@@ -24,7 +24,7 @@
         align-items: center;
 
         i {
-            font-size: 2rem;
+            font-size: 1.5rem;
             padding-bottom: .1rem;
         }
         span {
@@ -53,18 +53,18 @@
 @media screen and (max-width: 30rem) {
     .lsd-navigation-item:target {
         @keyframes nav_item_icon {
-            from {font-size: 2rem;}
-            to {font-size: 1.5rem;}
+            from {font-size: 1.5rem;}
+            to {font-size: 1.3rem;}
         }
         @keyframes nav_item_grow {
-            from {font-size: 0rem;opacity: .3;}
+            from {font-size: 0rem;opacity: 0;}
             to {font-size: .9rem;opacity: 1;}
         }
         i {
-            animation: nav_item_icon .1s linear;
+            animation: nav_item_icon .12s ease-in-out;
         }
         span {
-            animation: nav_item_grow .1s linear;
+            animation: nav_item_grow .12s ease-in-out;
         }
     }
 }
@@ -81,7 +81,7 @@
             justify-content: flex-start;
             padding-left: 1rem;
             i {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 &:target {
                     animation: none;
                 }
