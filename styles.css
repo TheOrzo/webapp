@@ -88,6 +88,7 @@ footer {
 }
 
 .lsd-navigation-item:target {
+  background-color: #424242;
   color: #4ecc4e;
 }
 
@@ -205,7 +206,6 @@ footer {
 
 .lsd-scene-item {
   width: 100%;
-  max-width: 25rem;
   border-radius: 3px;
   display: -ms-grid;
   display: grid;
@@ -240,6 +240,10 @@ footer {
   padding: 1rem;
 }
 
+.lsd-scene-item-content i:hover {
+  color: #4ecc4e;
+}
+
 .lsd-scene-item-content-color {
   height: 5px;
   grid-column: span 2;
@@ -247,8 +251,23 @@ footer {
   background: linear-gradient(0deg, #090979 35%, rgba(0, 212, 255, 0) 100%);
 }
 
+.lsd-scene-item-content-expand {
+  height: 0;
+  overflow: hidden;
+}
+
+.lsd-scene-item-content.expanded .lsd-scene-item-content-expand {
+  height: 4rem;
+}
+
 .lsd-scene-item .dummy {
   opacity: 0;
   height: 0;
+}
+
+@media screen and (min-width: 55rem) {
+  .lsd-scene-item {
+    max-width: 25rem;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

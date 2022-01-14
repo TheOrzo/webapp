@@ -37,7 +37,8 @@
         }
 
         &:target {
-            color: lighten($lsd-primary, 30%);
+            background-color: lighten($lsd-background, 5%);
+            color: $lsd-primary;
             i {
                 font-size: 1.5rem;
             }

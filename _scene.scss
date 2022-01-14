@@ -9,7 +9,6 @@
 
 .lsd-scene-item {
     width: 100%;
-    max-width: 25rem;
     border-radius: 3px;
     display: grid;
     grid-template-columns: 2rem auto;
@@ -31,16 +30,37 @@
         i {
             font-size: 1.5rem;
             padding: 1rem;
+
+            &:hover {
+                color: $lsd-primary;
+            }
         }
         &-color {
             height: 5px;
             grid-column: span 2;
-            background: linear-gradient(0deg, rgba(9,9,121,1) 35%, rgba(0,212,255,0) 100%);
+            background: linear-gradient(0deg, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 0) 100%);
+        }
+
+        &-expand {
+            height: 0;
+            overflow: hidden;
+        }
+
+        &.expanded {
+            .lsd-scene-item-content-expand {
+                height: 4rem;
+            }
         }
     }
 
     .dummy {
         opacity: 0;
         height: 0;
+    }
+}
+
+@media screen and (min-width: 55rem) {
+    .lsd-scene-item {
+        max-width: 25rem;
     }
 }
