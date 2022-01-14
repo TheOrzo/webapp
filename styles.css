@@ -197,77 +197,158 @@ footer {
   gap: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 0.4rem;
+  padding: 0.2rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  max-width: 100rem;
 }
 
 .lsd-scene-item {
   width: 100%;
+  height: 4rem;
   border-radius: 3px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2rem auto;
-      grid-template-columns: 2rem auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-columns: 2rem auto 3.2rem;
+      grid-template-columns: 2rem auto 3.2rem;
   overflow: hidden;
-  background: -webkit-gradient(linear, left bottom, left top, from(var(--color)), color-stop(20%, #424242));
-  background: linear-gradient(0deg, var(--color) 0%, #424242 20%);
+  background-color: #424242;
 }
 
 .lsd-scene-item-drag {
-  display: -ms-grid;
-  display: grid;
-  -ms-flex-line-pack: center;
-      align-content: center;
   cursor: move;
 }
 
 .lsd-scene-item-content {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto 3.5rem;
-      grid-template-columns: auto 3.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .lsd-scene-item-content h2 {
-  margin-bottom: 0.4rem;
+  margin: 0;
+  padding: 0;
 }
 
-.lsd-scene-item-content i {
-  font-size: 1.5rem;
-  padding: 1rem;
-}
-
-.lsd-scene-item-content i:hover {
-  color: #4ecc4e;
-}
-
-.lsd-scene-item-content-color {
-  height: 5px;
-  grid-column: span 2;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(35%, #090979), to(rgba(0, 212, 255, 0)));
-  background: linear-gradient(0deg, #090979 35%, rgba(0, 212, 255, 0) 100%);
-}
-
-.lsd-scene-item-content-expand {
+.lsd-scene-item-content-expanded {
   height: 0;
+  margin-top: 0.3rem;
   overflow: hidden;
 }
 
-.lsd-scene-item-content.expanded .lsd-scene-item-content-expand {
-  height: 4rem;
+.lsd-scene-item-content-expanded input {
+  height: 0;
+  width: 80%;
+  background: black;
 }
 
-.lsd-scene-item .dummy {
+.lsd-scene-item.expanded {
+  height: 5rem;
+  background: -webkit-gradient(linear, left bottom, left top, from(var(--color)), color-stop(20%, #424242));
+  background: linear-gradient(0deg, var(--color) 0%, #424242 20%);
+  -webkit-animation: lsd_scene_item_open .2s ease-in;
+          animation: lsd_scene_item_open .2s ease-in;
+}
+
+@-webkit-keyframes lsd_scene_item_open {
+  from {
+    height: 4rem;
+  }
+  to {
+    height: 5rem;
+  }
+}
+
+@keyframes lsd_scene_item_open {
+  from {
+    height: 4rem;
+  }
+  to {
+    height: 5rem;
+  }
+}
+
+.lsd-scene-item.expanded .lsd-scene-item-close {
+  color: #4ecc4e;
+}
+
+.lsd-scene-item.expanded .lsd-scene-item-content-expanded {
+  -webkit-animation: lsd_scene_item_open_expanded .2s ease-in;
+          animation: lsd_scene_item_open_expanded .2s ease-in;
+  height: auto;
+}
+
+@-webkit-keyframes lsd_scene_item_open_expanded {
+  from {
+    height: 0;
+  }
+  to {
+    height: auto;
+  }
+}
+
+@keyframes lsd_scene_item_open_expanded {
+  from {
+    height: 0;
+  }
+  to {
+    height: auto;
+  }
+}
+
+.lsd-scene-item.expanded .lsd-scene-item-content-expanded input {
+  -webkit-animation: lsd_scene_item_open_expanded_input .2s ease-in-out;
+          animation: lsd_scene_item_open_expanded_input .2s ease-in-out;
+  height: auto;
+}
+
+@-webkit-keyframes lsd_scene_item_open_expanded_input {
+  from {
+    height: 0;
+  }
+  to {
+    height: auto;
+  }
+}
+
+@keyframes lsd_scene_item_open_expanded_input {
+  from {
+    height: 0;
+  }
+  to {
+    height: auto;
+  }
+}
+
+.lsd-scene-item-close {
+  font-size: 1.5rem;
+}
+
+.lsd-scene-item-close:hover {
+  color: #4ecc4e;
+}
+
+.lsd-scene-item.spacer {
   opacity: 0;
   height: 0;
 }
 
 @media screen and (min-width: 55rem) {
   .lsd-scene-item {
-    max-width: 25rem;
+    margin-top: 1rem;
+    max-width: 30rem;
   }
 }
 /*# sourceMappingURL=styles.css.map */
