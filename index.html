@@ -18,95 +18,118 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&family=Roboto&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 
 <body>
     <div class="lsd-container">
         <nav class="lsd-navigation">
-            <a class="lsd-navigation-item" href="#scenes">
+            <a class="lsd-navigation-item" href="#scenes" id="scenes">
                 <i class="material-icons">visibility</i>
                 <span>Scenes</span>
             </a>
-            <a class="lsd-navigation-item" href="#hardware">
+            <a class="lsd-navigation-item" href="#hardware" id="hardware">
                 <i class="material-icons">developer_board</i>
                 <span>Hardware</span>
             </a>
-            <a class="lsd-navigation-item" href="#segment">
+            <a class="lsd-navigation-item" href="#segment" id="segment">
                 <i class="material-icons">lightbulb</i>
                 <span>Segment</span>
             </a>
-            <a class="lsd-navigation-item" href="#settings">
+            <a class="lsd-navigation-item" href="#settings" id="settings">
                 <i class="material-icons">settings</i>
                 <span>Settings</span>
             </a>
             <div class="lsd-navigation-spacer"></div>
         </nav>
         <main>
-            <div class="lsd-scene-container">
+            <div class="lsd-content-scroller">
+                <section class="content-scroller-child hidden" content="scenes">
+                    <div class="lsd-scene-container">
 
-                <div class="lsd-scene-item" style="--color:rgb(55, 55, 223)">
-                    <div class="lsd-scene-item-drag">
-                        <i class="material-icons">
-                            drag_indicator
-                        </i>
-                    </div>
-                    <div class="lsd-scene-item-content">
-                        <h2>Schreibtisch</h2>
-                        <div class="lsd-scene-item-content-expanded">
-                            <input type="range" name="" id="" min="0" max="255" step="1">
+                        <div class="lsd-scene-item" style="--color:rgb(55, 55, 223)">
+                            <div class="lsd-scene-item-drag">
+                                <i class="material-icons">
+                                    drag_indicator
+                                </i>
+                            </div>
+                            <div class="lsd-scene-item-content">
+                                <h2>Schreibtisch</h2>
+                                <div class="lsd-scene-item-content-expanded">
+                                    <input type="range" name="" id="" min="0" max="255" step="1">
+                                </div>
+                            </div>
+                            <div class="lsd-scene-item-close material-icons">power_settings_new</div>
                         </div>
-                    </div>
-                    <div class="lsd-scene-item-close material-icons">power_settings_new</div>
-                </div>
-                <div class="lsd-scene-item expanded" style="--color:rgb(55, 55, 223)">
-                    <div class="lsd-scene-item-drag">
-                        <i class="material-icons">
-                            drag_indicator
-                        </i>
-                    </div>
-                    <div class="lsd-scene-item-content">
-                        <h2>Bett</h2>
-                        <div class="lsd-scene-item-content-expanded">
-                            <input type="range" name="" id="" min="0" max="255" step="1">
+                        <div class="lsd-scene-item expanded" style="--color:rgb(55, 55, 223)">
+                            <div class="lsd-scene-item-drag">
+                                <i class="material-icons">
+                                    drag_indicator
+                                </i>
+                            </div>
+                            <div class="lsd-scene-item-content">
+                                <h2>Bett</h2>
+                                <div class="lsd-scene-item-content-expanded">
+                                    <input type="range" name="" id="" min="0" max="255" step="1">
+                                </div>
+                            </div>
+                            <div class="lsd-scene-item-close material-icons">power_settings_new</div>
                         </div>
-                    </div>
-                    <div class="lsd-scene-item-close material-icons">power_settings_new</div>
-                </div>
-                <div class="lsd-scene-item " style="--color:rgb(55, 55, 223)">
-                    <div class="lsd-scene-item-drag">
-                        <i class="material-icons">
-                            drag_indicator
-                        </i>
-                    </div>
-                    <div class="lsd-scene-item-content">
-                        <h2>Regal</h2>
-                        <div class="lsd-scene-item-content-expanded">
-                            <input type="range" name="" id="" min="0" max="255" step="1">
+                        <div class="lsd-scene-item " style="--color:rgb(55, 55, 223)">
+                            <div class="lsd-scene-item-drag">
+                                <i class="material-icons">
+                                    drag_indicator
+                                </i>
+                            </div>
+                            <div class="lsd-scene-item-content">
+                                <h2>Regal</h2>
+                                <div class="lsd-scene-item-content-expanded">
+                                    <input type="range" name="" id="" min="0" max="255" step="1">
+                                </div>
+                            </div>
+                            <div class="lsd-scene-item-close material-icons">power_settings_new</div>
                         </div>
-                    </div>
-                    <div class="lsd-scene-item-close material-icons">power_settings_new</div>
-                </div>
-                <div class="lsd-scene-item expanded" style="--color:rgb(87, 223, 55)">
-                    <div class="lsd-scene-item-drag">
-                        <i class="material-icons">
-                            drag_indicator
-                        </i>
-                    </div>
-                    <div class="lsd-scene-item-content">
-                        <h2>Fensterbank</h2>
-                        <div class="lsd-scene-item-content-expanded">
-                            <input type="range" name="" id="" min="0" max="255" step="1">
+                        <div class="lsd-scene-item expanded" style="--color:rgb(87, 223, 55)">
+                            <div class="lsd-scene-item-drag">
+                                <i class="material-icons">
+                                    drag_indicator
+                                </i>
+                            </div>
+                            <div class="lsd-scene-item-content">
+                                <h2>Fensterbank</h2>
+                                <div class="lsd-scene-item-content-expanded">
+                                    <input type="range" name="" id="" min="0" max="255" step="1">
+                                </div>
+                            </div>
+                            <div class="lsd-scene-item-close material-icons">power_settings_new</div>
                         </div>
-                    </div>
-                    <div class="lsd-scene-item-close material-icons">power_settings_new</div>
-                </div>
 
-                <div class="lsd-scene-item spacer"></div>
-                <div class="lsd-scene-item spacer"></div>
-                <div class="lsd-scene-item spacer"></div>
+                        <div class="lsd-scene-item spacer"></div>
+                        <div class="lsd-scene-item spacer"></div>
+                        <div class="lsd-scene-item spacer"></div>
+                    </div>
+                </section>
+                <section class="content-scroller-child hidden" content="hardware">
+                    <div class="lsd-hardware-container">
+                        Test Hardware Container
+                    </div>
+                </section>
+                <section class="content-scroller-child hidden" content="segment">
+                    <div class="lsd-segment-container">
+                        Test Segment Container
+                    </div>
+                </section>
+                <section class="content-scroller-child hidden" content="settings">
+                    <div class="lsd-settings-container">
+                        Test Settings Container
+                    </div>
+                </section>
             </div>
             <footer class="lsd-footer">
                 <span>Project by TDev</span>
+                <a href="https://www.youtube.com/channel/UCvkWgKy_400SiTfXz5ZYumA"><image width="32" height="22" src="images/youtube.png"></image><span>TDev</span></a>
+                <a href="https://github.com/TheOrzo/webapp"><image width="22" heigth="22" src="images/github.png"></image><span>TheOrzo</span></a>
+                <span></span>
             </footer>
         </main>
     </div>
