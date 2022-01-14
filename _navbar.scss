@@ -1,0 +1,102 @@
+.lsd-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 4rem auto;
+    grid-template-areas: "nav" "main";
+    min-height: 100vh;
+}
+
+.lsd-navigation {
+    display: flex;
+    grid-area: "nav";
+    width: 100%;
+
+    &-item {
+        flex: 1;
+        height: 100%;
+        text-decoration: none;
+        color: $lsd-on-background;
+        transition: all .1s ease-in;
+
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        i {
+            font-size: 2rem;
+            padding-bottom: .1rem;
+        }
+        span {
+            font-size: .9rem;
+            display: none;
+        }
+
+        &:hover {
+            background-color: lighten($lsd-background, 5%);
+        }
+
+        &:target {
+            color: lighten($lsd-primary, 30%);
+            i {
+                font-size: 1.5rem;
+            }
+            
+            span {
+                display: block;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width: 30rem) {
+    .lsd-navigation-item:target {
+        @keyframes nav_item_icon {
+            from {font-size: 2rem;}
+            to {font-size: 1.5rem;}
+        }
+        @keyframes nav_item_grow {
+            from {font-size: 0rem;opacity: .3;}
+            to {font-size: .9rem;opacity: 1;}
+        }
+        i {
+            animation: nav_item_icon .1s linear;
+        }
+        span {
+            animation: nav_item_grow .1s linear;
+        }
+    }
+}
+
+@media screen and (min-width: 30rem) {
+    .lsd-navigation {
+        flex-direction: column;
+        width: auto;
+        max-height: 20rem;
+
+        &-item {
+            flex-direction: row;
+            height: 10rem;
+            justify-content: flex-start;
+            padding-left: 1rem;
+            i {
+                font-size: 1.5rem;
+                &:target {
+                    animation: none;
+                }
+            }
+            span {
+                padding-left: .5rem;
+                display: block;
+            }
+        }
+    }
+
+    .lsd-container {
+
+        grid-template-columns: 10rem auto;
+        grid-template-rows: auto;
+        grid-template-areas: "nav main";
+    }
+}

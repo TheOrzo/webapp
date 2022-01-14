@@ -8,6 +8,26 @@ body {
   margin: 0;
   font-family: 'Be Vietnam Pro', sans-serif;
   background: #292929;
+  color: white;
+}
+
+main {
+  grid-area: "main";
+  background-color: #363636;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+footer {
+  padding: .5rem;
 }
 
 .lsd-container {
@@ -61,30 +81,6 @@ body {
 .lsd-navigation-item span {
   font-size: .9rem;
   display: none;
-  -webkit-animation: nav_item_grow .1s linear;
-          animation: nav_item_grow .1s linear;
-}
-
-@-webkit-keyframes nav_item_grow {
-  from {
-    font-size: 0rem;
-    opacity: .3;
-  }
-  to {
-    font-size: .9rem;
-    opacity: 1;
-  }
-}
-
-@keyframes nav_item_grow {
-  from {
-    font-size: 0rem;
-    opacity: .3;
-  }
-  to {
-    font-size: .9rem;
-    opacity: 1;
-  }
 }
 
 .lsd-navigation-item:hover {
@@ -95,13 +91,59 @@ body {
   color: #4ecc4e;
 }
 
+.lsd-navigation-item:target i {
+  font-size: 1.5rem;
+}
+
 .lsd-navigation-item:target span {
   display: block;
 }
 
-main {
-  grid-area: "main";
-  background-color: #363636;
+@media screen and (max-width: 30rem) {
+  @-webkit-keyframes nav_item_icon {
+    from {
+      font-size: 2rem;
+    }
+    to {
+      font-size: 1.5rem;
+    }
+  }
+  @keyframes nav_item_icon {
+    from {
+      font-size: 2rem;
+    }
+    to {
+      font-size: 1.5rem;
+    }
+  }
+  @-webkit-keyframes nav_item_grow {
+    from {
+      font-size: 0rem;
+      opacity: .3;
+    }
+    to {
+      font-size: .9rem;
+      opacity: 1;
+    }
+  }
+  @keyframes nav_item_grow {
+    from {
+      font-size: 0rem;
+      opacity: .3;
+    }
+    to {
+      font-size: .9rem;
+      opacity: 1;
+    }
+  }
+  .lsd-navigation-item:target i {
+    -webkit-animation: nav_item_icon .1s linear;
+            animation: nav_item_icon .1s linear;
+  }
+  .lsd-navigation-item:target span {
+    -webkit-animation: nav_item_grow .1s linear;
+            animation: nav_item_grow .1s linear;
+  }
 }
 
 @media screen and (min-width: 30rem) {
@@ -123,6 +165,13 @@ main {
         -ms-flex-pack: start;
             justify-content: flex-start;
     padding-left: 1rem;
+  }
+  .lsd-navigation-item i {
+    font-size: 1.5rem;
+  }
+  .lsd-navigation-item i:target {
+    -webkit-animation: none;
+            animation: none;
   }
   .lsd-navigation-item span {
     padding-left: .5rem;
