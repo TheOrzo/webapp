@@ -190,6 +190,7 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding: 0.4rem;
@@ -203,8 +204,8 @@ footer {
   -ms-grid-columns: 2rem auto;
       grid-template-columns: 2rem auto;
   overflow: hidden;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(10%, #2d2d6e), color-stop(60%, #424242));
-  background: linear-gradient(0deg, #2d2d6e 10%, #424242 60%);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(10%, var(--color)), color-stop(60%, #424242));
+  background: linear-gradient(0deg, var(--color) 10%, #424242 60%);
 }
 
 .lsd-scene-item-drag {
