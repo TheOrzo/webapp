@@ -50,16 +50,18 @@ main {
 
 .content-scroller-child {
     overflow: hidden;
+    position: absolute;
+    top: $lsd-nav-mobil-height;
+    width: 100vw;
+    height: calc(100vh - 5.2rem);
+    left: 0;
 
     &.hidden {
-        top: $lsd-nav-mobil-height;
+        left: -100vw;
     }
 
     &.fadein {
-        left: 0;
-        top: $lsd-nav-mobil-height;
         animation: scroller_fade_in .5s ease-in;
-        animation-fill-mode: forwards;
         @keyframes scroller_fade_in {
             from{opacity: 0;}
             to{opacity: 1;}
@@ -102,9 +104,10 @@ main {
 
 
 @media screen and (min-width: 30rem) {
-    .content-scroller-child {     
-        top: 0rem;
+    .content-scroller-child {
+        width: calc(100vw - 10rem);
         left: $lsd-nav-desk-width;
+        top: 0;
 
         &.hidden {
             left: $lsd-nav-desk-width;
@@ -112,10 +115,7 @@ main {
         }
 
         &.fadein {
-            left: $lsd-nav-desk-width;
-            top: 0;
             animation: scroller_fade_in .5s ease-in;
-            animation-fill-mode: forwards;
             @keyframes scroller_fade_in {
                 from{opacity: 0;}
                 to{opacity: 1;}
@@ -124,7 +124,6 @@ main {
 
         &.scrollInReadDir {
             animation: scroller_in_read .5s ease-in-out;
-            animation-fill-mode: forwards;
             @keyframes scroller_in_read {
                 from{top:-100vh;}
                 to{top:0;}
@@ -133,7 +132,6 @@ main {
 
         &.scrollInAntiReadDir {
             animation: scroller_in_anti_read .5s ease-in-out;
-            animation-fill-mode: forwards;
             @keyframes scroller_in_anti_read {
                 from{top: 100vh;}
                 to{top:0;}
@@ -142,7 +140,6 @@ main {
 
         &.scrollOutReadDir {
             animation: scroller_out_read .5s ease-in-out;
-            animation-fill-mode: forwards;
             @keyframes scroller_out_read {
                 from{top:0;}
                 to{top:100vh;}
@@ -151,7 +148,6 @@ main {
 
         &.scrollOutAntiReadDir {
             animation: scroller_out_anti_read .5s ease-in-out;
-            animation-fill-mode: forwards;
             @keyframes scroller_out_anti_read {
                 from{top: 0}
                 to{top:-100vh}
@@ -161,6 +157,7 @@ main {
 }
 
 footer {
+    height: 2.2rem;
     padding: .5rem;
     background-color: darken($lsd-background, 5%);
     display: flex;

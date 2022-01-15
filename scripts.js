@@ -44,8 +44,8 @@ function scrollToCurrentPanel() {
         var navPosLast = document.getElementById(pageIn.getAttribute("content")).getBoundingClientRect();
         var navPostNew = document.getElementById(pageOut.getAttribute("content")).getBoundingClientRect();
 
-        var scrollToRight = navPosLast.x - navPostNew.x + navPosLast.y - navPostNew.y < 0;
-        if (scrollToRight) {
+        var scrollReadDir = navPosLast.x - navPostNew.x + navPosLast.y - navPostNew.y < 0;
+        if (scrollReadDir) {
             pageIn.classList.add("scrollInReadDir")
             pageOut.classList.add("scrollOutReadDir")
         } else {

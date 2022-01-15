@@ -53,19 +53,20 @@ main {
 
 .content-scroller-child {
   overflow: hidden;
+  position: absolute;
+  top: 3rem;
+  width: 100vw;
+  height: calc(100vh - 5.2rem);
+  left: 0;
 }
 
 .content-scroller-child.hidden {
-  top: 3rem;
+  left: -100vw;
 }
 
 .content-scroller-child.fadein {
-  left: 0;
-  top: 3rem;
   -webkit-animation: scroller_fade_in .5s ease-in;
           animation: scroller_fade_in .5s ease-in;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes scroller_fade_in {
@@ -180,20 +181,17 @@ main {
 
 @media screen and (min-width: 30rem) {
   .content-scroller-child {
-    top: 0rem;
+    width: calc(100vw - 10rem);
     left: 10rem;
+    top: 0;
   }
   .content-scroller-child.hidden {
     left: 10rem;
     top: -100vh;
   }
   .content-scroller-child.fadein {
-    left: 10rem;
-    top: 0;
     -webkit-animation: scroller_fade_in .5s ease-in;
             animation: scroller_fade_in .5s ease-in;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
   }
   @-webkit-keyframes scroller_fade_in {
     from {
@@ -214,8 +212,6 @@ main {
   .content-scroller-child.scrollInReadDir {
     -webkit-animation: scroller_in_read .5s ease-in-out;
             animation: scroller_in_read .5s ease-in-out;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
   }
   @-webkit-keyframes scroller_in_read {
     from {
@@ -236,8 +232,6 @@ main {
   .content-scroller-child.scrollInAntiReadDir {
     -webkit-animation: scroller_in_anti_read .5s ease-in-out;
             animation: scroller_in_anti_read .5s ease-in-out;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
   }
   @-webkit-keyframes scroller_in_anti_read {
     from {
@@ -258,8 +252,6 @@ main {
   .content-scroller-child.scrollOutReadDir {
     -webkit-animation: scroller_out_read .5s ease-in-out;
             animation: scroller_out_read .5s ease-in-out;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
   }
   @-webkit-keyframes scroller_out_read {
     from {
@@ -280,8 +272,6 @@ main {
   .content-scroller-child.scrollOutAntiReadDir {
     -webkit-animation: scroller_out_anti_read .5s ease-in-out;
             animation: scroller_out_anti_read .5s ease-in-out;
-    -webkit-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
   }
   @-webkit-keyframes scroller_out_anti_read {
     from {
@@ -302,6 +292,7 @@ main {
 }
 
 footer {
+  height: 2.2rem;
   padding: .5rem;
   background-color: #292929;
   display: -webkit-box;
