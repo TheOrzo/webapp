@@ -1,15 +1,7 @@
-.lsd-container {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 3rem auto;
-    grid-template-areas: "nav" "main";
-    min-height: 100vh;
-}
-
 .lsd-navigation {
     display: flex;
     grid-area: "nav";
-    width: 100%;
+    width: 100vw;
 
     &-item {
         flex: 1;
