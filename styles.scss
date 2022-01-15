@@ -26,7 +26,9 @@ main {
     background-color: $lsd-background;
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
 
 .lsd-container {
@@ -41,63 +43,21 @@ main {
     min-width: 100vw;
 }
 
+.lsd-ocntent-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
 .lsd-content-scroller {
     display: grid;
     grid-template-columns: 100vw 100vw 100vw 100vw;
-    overflow: hidden;
-    width: 100vw;
+    transition: top .5s ease-in-out, left .5 ease-in-out;
+    top: $lsd-nav-mobil-height;
+    left: 0;
 }
 
 .content-scroller-child {
-    overflow: hidden;
-
-    &.hidden {
-        top: $lsd-nav-mobil-height;
-    }
-
-    &.fadein {
-        left: 0;
-        top: $lsd-nav-mobil-height;
-        animation: scroller_fade_in .5s ease-in;
-        animation-fill-mode: forwards;
-        @keyframes scroller_fade_in {
-            from{opacity: 0;}
-            to{opacity: 1;}
-        }
-    }
-
-    &.scrollInReadDir {
-        animation: scroller_in_read .5s ease-in-out;
-        @keyframes scroller_in_read {
-            from{left:-100vw;}
-            to{left:0;}
-        }
-    }
-
-    &.scrollInAntiReadDir {
-        animation: scroller_in_anti_read .5s ease-in-out;
-        @keyframes scroller_in_anti_read {
-            from{left: 100vw;}
-            to{left:0;}
-        }
-    }
-
-    &.scrollOutReadDir {
-        animation: scroller_out_read .5s ease-in-out;
-        @keyframes scroller_out_read {
-            from{left:0;}
-            to{left:100vw;}
-        }
-    }
-
-    &.scrollOutAntiReadDir {
-        animation: scroller_out_anti_read .5s ease-in-out;
-        @keyframes scroller_out_anti_read {
-            from{left: 0}
-            to{left:-100vw}
-        }
-    }
-    
 }
 
 
