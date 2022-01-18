@@ -89,7 +89,8 @@ function loadHardwareConfig() {
         item.id = ("hardware" + i);
         item.innerHTML = `
                 <h2>${config.hardware[i].name}</h2>
-                <button>save</button>
+                <button class="lsd-hardware-item-delete">delete</button>
+                <button class="lsd-hardware-item-save">save</button>
                 <h4>GPIO Pin</h4>
                 <select name="pins" id="hardware_pins_${i}">
                     <option value="1">GPIO 1</option>
@@ -111,8 +112,9 @@ function loadHardwareConfig() {
                 </label>`;
         container.appendChild(item);
         item.getElementsByTagName("select")[0].value = config.hardware[i].pin;
-        container.addEventListener('change', function () {
+        item.addEventListener('change', function () {
             this.getElementsByTagName('button')[0].style.visibility = "visible";
+            this.getElementsByTagName('button')[1].style.visibility = "visible";
         });
     }
     let spacer = document.createElement("div");

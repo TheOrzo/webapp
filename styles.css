@@ -637,8 +637,8 @@ footer a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-grid-columns: auto 10rem;
-      grid-template-columns: auto 10rem;
+  -ms-grid-columns: auto 5rem 5rem;
+      grid-template-columns: auto 5rem 5rem;
   overflow: hidden;
   background-color: #292b2c;
   padding-left: 1rem;
@@ -654,6 +654,18 @@ footer a {
   color: whitesmoke;
 }
 
+.lsd-hardware-item-delete {
+  background-color: #893b3b;
+  border: none;
+  border-radius: 10%;
+}
+
+.lsd-hardware-item-save {
+  background-color: #2f6e2f;
+  border: none;
+  border-radius: 10%;
+}
+
 .lsd-hardware-item select {
   margin-bottom: .5rem;
   background-color: transparent;
@@ -663,11 +675,16 @@ footer a {
   height: 3.5rem;
   overflow: visible;
   color: whitesmoke;
+  grid-column: span 2;
 }
 
 .lsd-hardware-item select option {
   background-color: #363839;
   border-color: transparent;
+}
+
+.lsd-hardware-item label {
+  grid-column: span 2;
 }
 
 .lsd-hardware-item h2 {

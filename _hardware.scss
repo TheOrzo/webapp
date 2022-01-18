@@ -26,7 +26,7 @@
     border-radius: 3px;
     display: grid;
     align-items: center;
-    grid-template-columns: auto 10rem;
+    grid-template-columns: auto 5rem 5rem;
     overflow: hidden;
     background-color: lighten($lsd-background, 5%);
     padding-left: 1rem;
@@ -40,6 +40,18 @@
     .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
         color: $lsd-on-background;
     }
+
+    &-delete {
+        background-color: #893b3b;
+        border: none;
+        border-radius: 10%;
+    }
+
+    &-save {
+        background-color: #2f6e2f;
+        border: none;
+        border-radius: 10%;
+    }
     
     select {
         margin-bottom: .5rem;
@@ -50,12 +62,16 @@
         height: 3.5rem;
         overflow: visible;
         color: $lsd-on-background;
-
+        grid-column: span 2;
         
         option {
             background-color: lighten($lsd-background, 10%);
             border-color: transparent;
         }
+    }
+
+    label {
+        grid-column: span 2;
     }
 
     h2 {
