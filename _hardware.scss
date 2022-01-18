@@ -31,6 +31,7 @@
     background-color: lighten($lsd-background, 5%);
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-bottom: .5rem;
 
     .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
         color: $lsd-on-background;
@@ -92,7 +93,6 @@
     }
 
     .lsd-hardware-item {
-        margin-top: 1rem;
         max-width: 28rem;
     }
 }

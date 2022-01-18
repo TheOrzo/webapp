@@ -591,7 +591,6 @@ footer a {
     width: 10rem;
   }
   .lsd-scene-item {
-    margin-top: 1rem;
     max-width: 28rem;
   }
 }
@@ -644,6 +643,7 @@ footer a {
   background-color: #292b2c;
   padding-left: 1rem;
   padding-right: 1rem;
+  padding-bottom: .5rem;
 }
 
 .lsd-hardware-item .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
@@ -707,7 +707,6 @@ footer a {
     width: 10rem;
   }
   .lsd-hardware-item {
-    margin-top: 1rem;
     max-width: 28rem;
   }
 }
