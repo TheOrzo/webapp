@@ -168,10 +168,14 @@ function loadScenes() {
                 </button>
             </div>`;
         container.appendChild(item);
+        mdc.slider.MDCSlider.attachTo(item.querySelector('.mdc-slider'));
     }
-    container.innerHTML += `<div class="lsd-scene-item spacer"></div>
-    <div class="lsd-scene-item spacer"></div>
-    <div class="lsd-scene-item spacer"></div>`;
+    let spacer = document.createElement("div");
+    spacer.classList.add("lsd-scene-item");
+    spacer.classList.add("spacer");
+    container.appendChild(spacer.cloneNode());
+    container.appendChild(spacer.cloneNode());
+    container.appendChild(spacer);
 }
 
 function sceneActivateButtonClick(id) {
