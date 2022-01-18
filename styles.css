@@ -1,12 +1,12 @@
 :root {
   --mdc-theme-primary: $lsd-primary;
   --mdc-theme-secondary: $lsd-secondary;
-  --mdc-theme-background: $lsd-background;
+  --mdc-theme-background: lighten($lsd-background, 5%);
 }
 
 body {
   margin: 0;
-  font-family: 'Be Vietnam Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: #292929;
   color: white;
   overflow: hidden;
@@ -470,6 +470,20 @@ footer a {
   }
 }
 
+.lsd-scene-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-column: 100;
+  grid-column: 100vw;
+}
+
+.lsd-scene-wrapper-button {
+  background-color: #424242;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  width: 90%;
+}
+
 .lsd-scene-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -480,7 +494,8 @@ footer a {
   gap: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 0.2rem;
+  padding: 0.6rem;
+  padding-top: 1rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -517,6 +532,7 @@ footer a {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: large;
 }
 
 .lsd-scene-item-content h2 {
@@ -632,6 +648,20 @@ footer a {
     margin-top: 1rem;
     max-width: 28rem;
   }
+}
+
+.lsd-hardware-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-column: 100;
+  grid-column: 100vw;
+}
+
+.lsd-hardware-wrapper-button {
+  background-color: #424242;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  width: 90%;
 }
 
 .lsd-hardware-container {

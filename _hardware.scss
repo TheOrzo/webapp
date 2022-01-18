@@ -1,3 +1,14 @@
+.lsd-hardware-wrapper {
+    display: grid;
+    grid-column: 100vw;
+
+    &-button {
+        background-color: lighten($lsd-background, 5%);
+        justify-self: center;
+        width: 90%;
+    }
+}
+
 .lsd-hardware-container {
     display: flex;
     justify-content: space-evenly;
@@ -5,10 +16,6 @@
     flex-wrap: wrap;
     padding: 0.2rem;
     user-select: none;
-
-    &.add {
-        
-    }
 }
 
 .lsd-hardware-item {

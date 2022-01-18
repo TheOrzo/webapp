@@ -10,12 +10,13 @@ $lsd-nav-mobil-height: 3rem;
 :root {
     --mdc-theme-primary: $lsd-primary;
     --mdc-theme-secondary: $lsd-secondary;
-    --mdc-theme-background: $lsd-background;
+    --mdc-theme-background: lighten($lsd-background, 5%);
 }
 
 body {
     margin: 0;
-    font-family: 'Be Vietnam Pro', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    //font-family: 'Be Vietnam Pro', sans-serif;
     background: darken($lsd-background, 5%);
     color: $lsd-on-background;
     overflow: hidden;

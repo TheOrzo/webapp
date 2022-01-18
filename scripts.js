@@ -1,5 +1,5 @@
 var mobileMaxSize = 480; // size in px (= 30rem)
-var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[],"scenes":[]}')
+var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","segments":[{"hardware":0,"start":0,"end":10}]}],"scenes":[{"name":"Schreibtisch rot","segments":[0],"animation":[{"name":"static","color":"#ff0000"}]},{"name":"Schreibtisch blau","segments":[0],"animation":[{"name":"static","color":"#0000ff"}]}]}');
 
 window.addEventListener('popstate', function () {
     scrollToCurrentPanel();
@@ -7,6 +7,7 @@ window.addEventListener('popstate', function () {
 
 window.addEventListener('load', function () {
     scrollToCurrentPanel();
+    applyConfig();
 })
 
 function scrollToCurrentPanel() {
@@ -115,5 +116,36 @@ function loadSegmentConfig() {
 }
 
 function loadScenes() {
+    var container = document.getElementById("lsd_scene_container");
+    for (i = 0; i < config.scenes.length; i++) {
+        const item = document.createElement("div");
+        item.classList.add("lsd-scene-item");
+        item.id = ("scene" + i);
+        item.style="--color:rgb(55, 55, 223";
+        item.innerHTML = `
+            <div class="lsd-scene-item-drag">
+                <i class="material-icons">
+                    drag_indicator
+                </i>
+            </div>
+            <div class="lsd-scene-item-content">
+                <h2>${config.scenes[i].name}</h2>
+                <div class="lsd-scene-item-content-expanded">
+                    <input type="range" name="" id="" min="0" max="255" step="1">
+                </div>
+            </div>
+            <div class="lsd-scene-item-close">
+                <button class="mdc-button" onclick="sceneActivateButtonClick(${i})">
+                    <span class="mdc-button__label material-icons">power_settings_new</span>
+                </button>
+            </div>`;
+        container.appendChild(item);
+    }
+    container.innerHTML += `<div class="lsd-scene-item spacer"></div>
+    <div class="lsd-scene-item spacer"></div>
+    <div class="lsd-scene-item spacer"></div>`;
+}
 
+function sceneActivateButtonClick(id) {
+    document.getElementById("scene" + id).classList.toggle("expanded");
 }
