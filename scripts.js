@@ -1,4 +1,5 @@
 var mobileMaxSize = 480; // size in px (= 30rem)
+var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[],"scenes":[]}')
 
 window.addEventListener('popstate', function () {
     scrollToCurrentPanel();
@@ -59,4 +60,60 @@ function scrollToCurrentPanel() {
 function scrollerItemRemoveAnimationClasses(element) {
     element.removeAttribute("class");
     element.classList.add("content-scroller-child")
+}
+
+function requestConfig() {
+    fetch('http://jsonplaceholder.typicode.com/users', { 
+        method: 'GET'
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(json) {
+        config = json;
+        applyConfig();
+    });
+}
+
+function applyConfig() {
+    loadHardwareConfig();
+    loadSegmentConfig();
+    loadScenes();
+}
+
+function loadHardwareConfig() {
+    var container = document.getElementById("lsd_hardware_container");
+    container.innerHTML = "";
+    for (i = 0; i < config.hardware.length; i++) {
+        const item = document.createElement("form");
+        item.classList.add("lsd-hardware-item");
+        item.id = ("hardware" + i);
+        item.innerHTML = `
+                <h2>${config.hardware[i].name}</h2>
+                <button>save</button>
+                <label for="pins">GPIO Pin</label>
+                <select name="pins" id="hardware_pins_${i}">
+                    <option value="1">GPIO 1</option>
+                    <option value="2">GPIO 2</option>
+                    <option value="3">GPIO 3</option>
+                    <option value="4">GPIO 4</option>
+                    <option value="5">GPIO 5</option>
+                </select>
+                <label>Number of LEDs</label>
+                <input type="number" min="0" step="1" value="${config.hardware[i].num}">`;
+        container.appendChild(item);
+        document.getElementById("hardware_pins_" + i).value = config.hardware[i].pin;
+        document.getElementById("hardware" + i).addEventListener('change', function() {
+            this.getElementsByTagName('button')[0].style.visibility = "visible";
+        })
+    }
+    container.innerHTML += `<div class="lsd-hardware-item spacer"></div>
+    <div class="lsd-hardware-item spacer"></div>
+    <div class="lsd-hardware-item spacer"></div>`;
+}
+
+function loadSegmentConfig() {
+
+}
+
+function loadScenes() {
+
 }

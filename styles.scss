@@ -162,6 +162,8 @@ footer {
     background-color: darken($lsd-background, 5%);
     display: flex;
     justify-content: space-between;
+    z-index: 2;
+
     span {
         align-self: center;
     }
