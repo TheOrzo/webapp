@@ -1,23 +1,23 @@
-$lsd-background: hsl(11, 0%, 21%);
-$lsd-primary: #4ecc4e;
+$lsd-background: rgb(29, 30, 31);
+$lsd-primary: desaturate(#4ecc4e, 18%);
 $lsd-secondary:  #57BEC7;
-$lsd-on-background: white;
+$lsd-on-background: whitesmoke;
+$lsd-on-secondary: #000000;
 
 $lsd-nav-desk-width: 10rem;
 $lsd-nav-mobil-height: 3rem;
 
-
 :root {
     --mdc-theme-primary: $lsd-primary;
     --mdc-theme-secondary: $lsd-secondary;
-    --mdc-theme-background: lighten($lsd-background, 5%);
+    --mdc-theme-background: lighten($lsd-background, 3%);
 }
 
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     //font-family: 'Be Vietnam Pro', sans-serif;
-    background: darken($lsd-background, 5%);
+    background: lighten($lsd-background, 5%);
     color: $lsd-on-background;
     overflow: hidden;
 }
@@ -160,7 +160,7 @@ main {
 footer {
     height: 2.2rem;
     padding: .5rem;
-    background-color: darken($lsd-background, 5%);
+    background-color: darken($lsd-background, 3%);
     display: flex;
     justify-content: space-between;
     z-index: 2;

@@ -3,7 +3,9 @@
     grid-column: 100vw;
 
     &-button {
-        background-color: lighten($lsd-background, 5%);
+        --mdc-text-button-label-text-color: #000;
+        background-color: $lsd-primary;
+        //background-color: lighten($lsd-background, 5%);
         justify-self: center;
         width: 90%;
     }
@@ -25,9 +27,11 @@
     border-radius: 3px;
     display: grid;
     align-items: center;
-    grid-template-columns: 2rem auto 3.2rem;
+    grid-template-columns: 2rem auto 3.5rem;
     overflow: hidden;
     background-color: lighten($lsd-background, 5%);
+
+    transition: height .5s;
 
     &-drag {
         cursor: move;
@@ -48,44 +52,21 @@
             height: 0;
             margin-top: 0.3rem;
             overflow: hidden;
-            
-            input {
-                height: 0;
-                width: 80%;
-                background: black;
-            }
+            transition: height .5s;
         }
     }
 
     &.expanded {
-        height: 5rem;
-        background: linear-gradient(0deg, var(--color) 0%, lighten($lsd-background, 5%) 20%);
-
-        animation: lsd_scene_item_open .2s ease-in;
-        @keyframes lsd_scene_item_open {
-            from {height: 4rem;}
-            to {height: 5rem;}
-        }
+        height: 6rem;
+        background: linear-gradient(0deg, var(--color) 0%, lighten($lsd-background, 5%) 25%);
+        
 
         .lsd-scene-item-close {
             color: $lsd-primary;
         }
 
         .lsd-scene-item-content-expanded {
-            animation: lsd_scene_item_open_expanded .2s ease-in;
-            @keyframes lsd_scene_item_open_expanded {
-                from {height: 0;}
-                to {height: auto;}
-            }
-            height: auto;
-            input {
-                animation: lsd_scene_item_open_expanded_input .2s ease-in-out;
-                @keyframes lsd_scene_item_open_expanded_input {
-                    from {height: 0;}
-                    to {height: auto;}
-                }
-                height: auto;
-            }
+            height: 3rem;
         }
     }
     
@@ -104,6 +85,14 @@
 }
 
 @media screen and (min-width: 55rem) {
+    .lsd-scene-wrapper-button {
+        order: -1;
+        justify-self: end;
+        margin-top: .6rem; 
+        margin-right: .6rem;
+        width: 10rem;
+    }
+
     .lsd-scene-item {
         margin-top: 1rem;
         max-width: 28rem;

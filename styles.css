@@ -1,20 +1,20 @@
 :root {
   --mdc-theme-primary: $lsd-primary;
   --mdc-theme-secondary: $lsd-secondary;
-  --mdc-theme-background: lighten($lsd-background, 5%);
+  --mdc-theme-background: lighten($lsd-background, 3%);
 }
 
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background: #292929;
-  color: white;
+  background: #292b2c;
+  color: whitesmoke;
   overflow: hidden;
 }
 
 main {
   grid-area: "main";
-  background-color: #363636;
+  background-color: #1d1e1f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -294,7 +294,7 @@ main {
 footer {
   height: 2.2rem;
   padding: .5rem;
-  background-color: #292929;
+  background-color: #161617;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -320,7 +320,7 @@ footer a {
       -ms-flex-align: center;
           align-items: center;
   text-decoration: none;
-  color: white;
+  color: whitesmoke;
 }
 
 .lsd-navigation {
@@ -337,7 +337,7 @@ footer a {
           flex: 1;
   height: 100%;
   text-decoration: none;
-  color: white;
+  color: whitesmoke;
   -webkit-transition: all .1s ease-in;
   transition: all .1s ease-in;
   scroll-margin: 100rem;
@@ -367,12 +367,12 @@ footer a {
 }
 
 .lsd-navigation-item:hover {
-  background-color: #424242;
+  background-color: #292b2c;
 }
 
 .lsd-navigation-item:target {
-  background-color: #424242;
-  color: #4ecc4e;
+  background-color: #292b2c;
+  color: #63b763;
 }
 
 .lsd-navigation-item:target i {
@@ -478,7 +478,8 @@ footer a {
 }
 
 .lsd-scene-wrapper-button {
-  background-color: #424242;
+  --mdc-text-button-label-text-color: #000;
+  background-color: #63b763;
   -ms-grid-column-align: center;
       justify-self: center;
   width: 90%;
@@ -511,10 +512,12 @@ footer a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-grid-columns: 2rem auto 3.2rem;
-      grid-template-columns: 2rem auto 3.2rem;
+  -ms-grid-columns: 2rem auto 3.5rem;
+      grid-template-columns: 2rem auto 3.5rem;
   overflow: hidden;
-  background-color: #424242;
+  background-color: #292b2c;
+  -webkit-transition: height .5s;
+  transition: height .5s;
 }
 
 .lsd-scene-item-drag {
@@ -544,90 +547,22 @@ footer a {
   height: 0;
   margin-top: 0.3rem;
   overflow: hidden;
-}
-
-.lsd-scene-item-content-expanded input {
-  height: 0;
-  width: 80%;
-  background: black;
+  -webkit-transition: height .5s;
+  transition: height .5s;
 }
 
 .lsd-scene-item.expanded {
-  height: 5rem;
-  background: -webkit-gradient(linear, left bottom, left top, from(var(--color)), color-stop(20%, #424242));
-  background: linear-gradient(0deg, var(--color) 0%, #424242 20%);
-  -webkit-animation: lsd_scene_item_open .2s ease-in;
-          animation: lsd_scene_item_open .2s ease-in;
-}
-
-@-webkit-keyframes lsd_scene_item_open {
-  from {
-    height: 4rem;
-  }
-  to {
-    height: 5rem;
-  }
-}
-
-@keyframes lsd_scene_item_open {
-  from {
-    height: 4rem;
-  }
-  to {
-    height: 5rem;
-  }
+  height: 6rem;
+  background: -webkit-gradient(linear, left bottom, left top, from(var(--color)), color-stop(25%, #292b2c));
+  background: linear-gradient(0deg, var(--color) 0%, #292b2c 25%);
 }
 
 .lsd-scene-item.expanded .lsd-scene-item-close {
-  color: #4ecc4e;
+  color: #63b763;
 }
 
 .lsd-scene-item.expanded .lsd-scene-item-content-expanded {
-  -webkit-animation: lsd_scene_item_open_expanded .2s ease-in;
-          animation: lsd_scene_item_open_expanded .2s ease-in;
-  height: auto;
-}
-
-@-webkit-keyframes lsd_scene_item_open_expanded {
-  from {
-    height: 0;
-  }
-  to {
-    height: auto;
-  }
-}
-
-@keyframes lsd_scene_item_open_expanded {
-  from {
-    height: 0;
-  }
-  to {
-    height: auto;
-  }
-}
-
-.lsd-scene-item.expanded .lsd-scene-item-content-expanded input {
-  -webkit-animation: lsd_scene_item_open_expanded_input .2s ease-in-out;
-          animation: lsd_scene_item_open_expanded_input .2s ease-in-out;
-  height: auto;
-}
-
-@-webkit-keyframes lsd_scene_item_open_expanded_input {
-  from {
-    height: 0;
-  }
-  to {
-    height: auto;
-  }
-}
-
-@keyframes lsd_scene_item_open_expanded_input {
-  from {
-    height: 0;
-  }
-  to {
-    height: auto;
-  }
+  height: 3rem;
 }
 
 .lsd-scene-item-close {
@@ -635,7 +570,7 @@ footer a {
 }
 
 .lsd-scene-item-close:hover {
-  color: #4ecc4e;
+  color: #63b763;
 }
 
 .lsd-scene-item.spacer {
@@ -644,6 +579,16 @@ footer a {
 }
 
 @media screen and (min-width: 55rem) {
+  .lsd-scene-wrapper-button {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    -ms-grid-column-align: end;
+        justify-self: end;
+    margin-top: .6rem;
+    margin-right: .6rem;
+    width: 10rem;
+  }
   .lsd-scene-item {
     margin-top: 1rem;
     max-width: 28rem;
@@ -658,7 +603,8 @@ footer a {
 }
 
 .lsd-hardware-wrapper-button {
-  background-color: #424242;
+  --mdc-text-button-label-text-color: #000;
+  background-color: #63b763;
   -ms-grid-column-align: center;
       justify-self: center;
   width: 90%;
@@ -674,7 +620,8 @@ footer a {
   gap: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 0.2rem;
+  padding: 0.6rem;
+  padding-top: 1rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -693,14 +640,32 @@ footer a {
   -ms-grid-columns: auto 10rem;
       grid-template-columns: auto 10rem;
   overflow: hidden;
-  background-color: #424242;
+  background-color: #292b2c;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
+.lsd-hardware-item select {
+  margin-bottom: .5rem;
+  background-color: transparent;
+  border-color: #1d1e1f;
+  border-radius: 5%;
+  border-width: 1px;
+  height: 3.5rem;
+  overflow: visible;
+  color: whitesmoke;
+}
+
+.lsd-hardware-item select option {
+  background-color: #363839;
+  border-color: transparent;
+}
+
 .lsd-hardware-item h2 {
+  padding-top: .5rem;
   margin: 0;
   padding: 0;
+  color: #57BEC7;
 }
 
 .lsd-hardware-item button {
@@ -715,15 +680,26 @@ footer a {
   height: 0;
 }
 
+.lsd-hardware-textfield-white-text {
+  color: whitesmoke !important;
+}
+
 @media screen and (min-width: 55rem) {
+  .lsd-hardware-wrapper-button {
+    --mdc-text-button-label-text-color: #000;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    -ms-grid-column-align: end;
+        justify-self: end;
+    margin-top: .6rem;
+    margin-right: .6rem;
+    width: 10rem;
+  }
   .lsd-hardware-item {
     margin-top: 1rem;
     max-width: 28rem;
   }
-}
-
-.lsd-segment-container {
-  background-color: yellow;
 }
 
 .lsd-settings-container {

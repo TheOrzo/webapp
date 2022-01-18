@@ -1,5 +1,8 @@
+const MDCTextField = mdc.textField.MDCTextField;
+const MDCTextFieldFoundation = mdc.textField.MDCTextFieldFoundation;
+
 var mobileMaxSize = 480; // size in px (= 30rem)
-var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","segments":[{"hardware":0,"start":0,"end":10}]}],"scenes":[{"name":"Schreibtisch rot","segments":[0],"animation":[{"name":"static","color":"#ff0000"}]},{"name":"Schreibtisch blau","segments":[0],"animation":[{"name":"static","color":"#0000ff"}]}]}');
+var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","segments":[{"hardware":0,"start":0,"end":10}]}],"scenes":[{"name":"Schreibtisch rot","segments":[0],"animation":[{"name":"static","color":"#ff0000"}],"panelColor":"#cc3333"},{"name":"Schreibtisch blau","segments":[0],"animation":[{"name":"static","color":"#0000ff"}],"panelColor":"#3333cc"}]}');
 
 window.addEventListener('popstate', function () {
     scrollToCurrentPanel();
@@ -64,14 +67,14 @@ function scrollerItemRemoveAnimationClasses(element) {
 }
 
 function requestConfig() {
-    fetch('http://jsonplaceholder.typicode.com/users', { 
+    fetch('http://jsonplaceholder.typicode.com/users', {
         method: 'GET'
     })
-    .then(function(response) { return response.json(); })
-    .then(function(json) {
-        config = json;
-        applyConfig();
-    });
+        .then(function (response) { return response.json(); })
+        .then(function (json) {
+            config = json;
+            applyConfig();
+        });
 }
 
 function applyConfig() {
@@ -90,7 +93,7 @@ function loadHardwareConfig() {
         item.innerHTML = `
                 <h2>${config.hardware[i].name}</h2>
                 <button>save</button>
-                <label for="pins">GPIO Pin</label>
+                <h4>GPIO Pin</h4>
                 <select name="pins" id="hardware_pins_${i}">
                     <option value="1">GPIO 1</option>
                     <option value="2">GPIO 2</option>
@@ -98,11 +101,21 @@ function loadHardwareConfig() {
                     <option value="4">GPIO 4</option>
                     <option value="5">GPIO 5</option>
                 </select>
-                <label>Number of LEDs</label>
-                <input type="number" min="0" step="1" value="${config.hardware[i].num}">`;
+                <h4>Number of LEDs</h4>
+                <label class="mdc-text-field mdc-text-field--outlined">
+                    <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="lsd-hardware-textfield-white-text mdc-floating-label" id="hwd_leds_lable">Amount</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <input  type="number" min="0" step="1" value="${config.hardware[i].num}" class="lsd-hardware-textfield-white-text mdc-text-field__input" aria-labelledby="hwd_leds_lable">
+                </label>`;
         container.appendChild(item);
+        new MDCTextField(item.querySelector('.mdc-text-field'));
         document.getElementById("hardware_pins_" + i).value = config.hardware[i].pin;
-        document.getElementById("hardware" + i).addEventListener('change', function() {
+        document.getElementById("hardware" + i).addEventListener('change', function () {
             this.getElementsByTagName('button')[0].style.visibility = "visible";
         })
     }
@@ -121,7 +134,7 @@ function loadScenes() {
         const item = document.createElement("div");
         item.classList.add("lsd-scene-item");
         item.id = ("scene" + i);
-        item.style="--color:rgb(55, 55, 223";
+        item.style = "--color:" + config.scenes[i].panelColor;
         item.innerHTML = `
             <div class="lsd-scene-item-drag">
                 <i class="material-icons">
@@ -131,7 +144,18 @@ function loadScenes() {
             <div class="lsd-scene-item-content">
                 <h2>${config.scenes[i].name}</h2>
                 <div class="lsd-scene-item-content-expanded">
-                    <input type="range" name="" id="" min="0" max="255" step="1">
+                <div class="mdc-slider">
+                <input class="mdc-slider__input" type="range" min="0" max="100" value="50" name="volume" aria-label="Continuous slider demo">
+                <div class="mdc-slider__track">
+                  <div class="mdc-slider__track--inactive"></div>
+                  <div class="mdc-slider__track--active">
+                    <div class="mdc-slider__track--active_fill"></div>
+                  </div>
+                </div>
+                <div class="mdc-slider__thumb">
+                  <div class="mdc-slider__thumb-knob"></div>
+                </div>
+              </div>
                 </div>
             </div>
             <div class="lsd-scene-item-close">

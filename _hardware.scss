@@ -3,7 +3,8 @@
     grid-column: 100vw;
 
     &-button {
-        background-color: lighten($lsd-background, 5%);
+        --mdc-text-button-label-text-color: #000;
+        background-color: $lsd-primary;
         justify-self: center;
         width: 90%;
     }
@@ -14,7 +15,8 @@
     justify-content: space-evenly;
     gap: 1rem;
     flex-wrap: wrap;
-    padding: 0.2rem;
+    padding: 0.6rem;
+    padding-top: 1rem;
     user-select: none;
 }
 
@@ -30,10 +32,28 @@
     padding-left: 1rem;
     padding-right: 1rem;
     
+    select {
+        margin-bottom: .5rem;
+        background-color: transparent;
+        border-color: $lsd-background;
+        border-radius: 5%;
+        border-width: 1px;
+        height: 3.5rem;
+        overflow: visible;
+        color: $lsd-on-background;
+
+        
+        option {
+            background-color: lighten($lsd-background, 10%);
+            border-color: transparent;
+        }
+    }
 
     h2 {
+        padding-top: .5rem;
         margin: 0;
         padding: 0;
+        color: $lsd-secondary;
     }
 
     button {
@@ -48,7 +68,20 @@
     }
 }
 
+.lsd-hardware-textfield-white-text {
+    color: $lsd-on-background !important;
+}
+
 @media screen and (min-width: 55rem) {
+    .lsd-hardware-wrapper-button {
+        --mdc-text-button-label-text-color: #000;
+        order: -1;
+        justify-self: end;
+        margin-top: .6rem; 
+        margin-right: .6rem;
+        width: 10rem;
+    }
+
     .lsd-hardware-item {
         margin-top: 1rem;
         max-width: 28rem;
