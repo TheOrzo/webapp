@@ -1,6 +1,3 @@
-const MDCTextField = mdc.textField.MDCTextField;
-const MDCTextFieldFoundation = mdc.textField.MDCTextFieldFoundation;
-
 var mobileMaxSize = 480; // size in px (= 30rem)
 var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","segments":[{"hardware":0,"start":0,"end":10}]}],"scenes":[{"name":"Schreibtisch rot","segments":[0],"animation":[{"name":"static","color":"#ff0000"}],"panelColor":"#cc3333"},{"name":"Schreibtisch blau","segments":[0],"animation":[{"name":"static","color":"#0000ff"}],"panelColor":"#3333cc"}]}');
 
@@ -106,22 +103,29 @@ function loadHardwareConfig() {
                     <span class="mdc-notched-outline">
                     <span class="mdc-notched-outline__leading"></span>
                     <span class="mdc-notched-outline__notch">
-                        <span class="lsd-hardware-textfield-white-text mdc-floating-label" id="hwd_leds_lable">Amount</span>
+                        <span class="mdc-floating-label" id="hwd_leds_lable">Amount</span>
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                     </span>
-                    <input  type="number" min="0" step="1" value="${config.hardware[i].num}" class="lsd-hardware-textfield-white-text mdc-text-field__input" aria-labelledby="hwd_leds_lable">
+                    <input  type="number" min="0" step="1" value="${config.hardware[i].num}" class="mdc-text-field__input" aria-labelledby="hwd_leds_lable">
                 </label>`;
         container.appendChild(item);
-        new MDCTextField(item.querySelector('.mdc-text-field'));
-        document.getElementById("hardware_pins_" + i).value = config.hardware[i].pin;
-        document.getElementById("hardware" + i).addEventListener('change', function () {
+        item.getElementsByTagName("select")[0].value = config.hardware[i].pin;
+        container.addEventListener('change', function () {
             this.getElementsByTagName('button')[0].style.visibility = "visible";
-        })
+        });
     }
-    container.innerHTML += `<div class="lsd-hardware-item spacer"></div>
-    <div class="lsd-hardware-item spacer"></div>
-    <div class="lsd-hardware-item spacer"></div>`;
+    let spacer = document.createElement("div");
+    spacer.classList.add("lsd-hardware-item");
+    spacer.classList.add("spacer");
+    container.appendChild(spacer.cloneNode());
+    container.appendChild(spacer.cloneNode());
+    container.appendChild(spacer);
+
+
+    for (let input of document.getElementsByClassName("mdc-text-field")) {
+        mdc.textField.MDCTextField.attachTo(input);
+    }
 }
 
 function loadSegmentConfig() {
