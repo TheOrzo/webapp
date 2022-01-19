@@ -89,32 +89,103 @@ function loadHardwareConfig() {
         item.id = ("hardware" + i);
         item.innerHTML = `
                 <h2>${config.hardware[i].name}</h2>
-                <button class="lsd-hardware-item-delete">delete</button>
-                <button class="lsd-hardware-item-save">save</button>
-                <h4>GPIO Pin</h4>
-                <select name="pins" id="hardware_pins_${i}">
-                    <option value="1">GPIO 1</option>
-                    <option value="2">GPIO 2</option>
-                    <option value="3">GPIO 3</option>
-                    <option value="4">GPIO 4</option>
-                    <option value="5">GPIO 5</option>
-                </select>
-                <h4>Number of LEDs</h4>
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__touch"></span>
+                        <span class="mdc-button__label">delete</span>
+                    </button>
+                </div>
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__touch"></span>
+                        <span class="mdc-button__label">save</span>
+                    </button>
+                </div>
+                <div class="mdc-select mdc-select--outlined">
+                    <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                        <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span id="outlined-select-label" class="mdc-floating-label">Pick a GPIO Pin</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                        </span>
+                        <span class="mdc-select__selected-text-container">
+                        <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                        </span>
+                        <span class="mdc-select__dropdown-icon">
+                        <svg
+                            class="mdc-select__dropdown-icon-graphic"
+                            viewBox="7 10 10 5" focusable="false">
+                            <polygon
+                                class="mdc-select__dropdown-icon-inactive"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                points="7 10 12 15 17 10">
+                            </polygon>
+                            <polygon
+                                class="mdc-select__dropdown-icon-active"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                points="7 15 12 10 17 15">
+                            </polygon>
+                        </svg>
+                        </span>
+                    </div>
+                    <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                        <ul class="mdc-list">
+                            <li class="mdc-list-item" data-value="1">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 1</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="2">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 2</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="3">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 3</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="4">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 4</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="5">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 5</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <label class="mdc-text-field mdc-text-field--outlined">
                     <span class="mdc-notched-outline">
                     <span class="mdc-notched-outline__leading"></span>
                     <span class="mdc-notched-outline__notch">
-                        <span class="mdc-floating-label" id="hwd_leds_lable">Amount</span>
+                        <span class="mdc-floating-label" id="hwd_leds_lable">Set amount of LEDs</span>
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                     </span>
                     <input  type="number" min="0" step="1" value="${config.hardware[i].num}" class="mdc-text-field__input" aria-labelledby="hwd_leds_lable">
                 </label>`;
+                
+        const list = item.querySelector(".mdc-list");
+        for (let li of list.children) {
+            if (li.getAttribute("data-value") == config.hardware[i].pin) {
+                li.classList.add("mdc-list-item--selected");
+            }
+        }
         container.appendChild(item);
-        item.getElementsByTagName("select")[0].value = config.hardware[i].pin;
-        item.addEventListener('change', function () {
-            this.getElementsByTagName('button')[0].style.visibility = "visible";
-            this.getElementsByTagName('button')[1].style.visibility = "visible";
+        const select = mdc.select.MDCSelect.attachTo(item.querySelector(".mdc-select"));
+        select.listen('MDCSelect:change', () => {
+            item.getElementsByTagName('button')[0].style.visibility = "visible";
+            item.getElementsByTagName('button')[1].style.visibility = "visible";
+        });
+        const pin = mdc.textField.MDCTextField.attachTo(item.querySelector(".mdc-text-field"));
+        pin.listen('MDCTextField:change', () => {
+            item.getElementsByTagName('button')[0].style.visibility = "visible";
+            item.getElementsByTagName('button')[1].style.visibility = "visible";
         });
     }
     let spacer = document.createElement("div");

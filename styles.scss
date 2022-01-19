@@ -8,9 +8,9 @@ $lsd-nav-desk-width: 10rem;
 $lsd-nav-mobil-height: 3rem;
 
 :root {
-    --mdc-theme-primary: $lsd-primary;
-    --mdc-theme-secondary: $lsd-secondary;
-    --mdc-theme-background: lighten($lsd-background, 3%);
+    --mdc-theme-primary: #var($lsd-primary);
+    --mdc-theme-secondary: #var($lsd-secondary);
+    --mdc-theme-background: #var(lighten($lsd-background, 3%));
 }
 
 body {
