@@ -5,11 +5,11 @@
 }
 
 body {
+  overflow: hidden;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   background: #292b2c;
   color: whitesmoke;
-  overflow: hidden;
 }
 
 main {
@@ -28,7 +28,6 @@ main {
 }
 
 .lsd-container {
-  overflow: hidden;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto;
@@ -47,16 +46,15 @@ main {
   display: grid;
   -ms-grid-columns: 100vw 100vw 100vw 100vw;
       grid-template-columns: 100vw 100vw 100vw 100vw;
-  overflow: hidden;
   width: 100vw;
 }
 
 .content-scroller-child {
-  overflow: hidden;
+  overflow: auto;
   position: absolute;
   top: 3rem;
   width: 100vw;
-  height: calc(100vh - 5.2rem);
+  height: calc(100vh - 5.2rem - 2.2rem);
   left: 0;
 }
 
@@ -182,6 +180,7 @@ main {
 @media screen and (min-width: 30rem) {
   .content-scroller-child {
     width: calc(100vw - 10rem);
+    height: calc(100vh - 2.2rem);
     left: 10rem;
     top: 0;
   }
@@ -670,8 +669,16 @@ footer a {
   border-color: whitesmoke;
 }
 
+.lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading, .lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch, .lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: #5db9c1;
+}
+
 .lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .lsd-hardware-item .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
   border-color: whitesmoke;
+}
+
+.lsd-hardware-item .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__leading, .lsd-hardware-item .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__notch, .lsd-hardware-item .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: #5db9c1;
 }
 
 .lsd-hardware-item-delete {

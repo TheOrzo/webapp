@@ -14,12 +14,12 @@ $lsd-nav-mobil-height: 3rem;
 }
 
 body {
+    overflow: hidden;
     margin: 0;
     font-family: 'Roboto', sans-serif;
     //font-family: 'Be Vietnam Pro', sans-serif;
     background: lighten($lsd-background, 5%);
     color: $lsd-on-background;
-    overflow: hidden;
 }
 
 main {
@@ -31,7 +31,6 @@ main {
 }
 
 .lsd-container {
-    overflow: hidden;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: $lsd-nav-mobil-height auto;
@@ -45,16 +44,15 @@ main {
 .lsd-content-scroller {
     display: grid;
     grid-template-columns: 100vw 100vw 100vw 100vw;
-    overflow: hidden;
     width: 100vw;
 }
 
 .content-scroller-child {
-    overflow: hidden;
+    overflow: auto;
     position: absolute;
     top: $lsd-nav-mobil-height;
     width: 100vw;
-    height: calc(100vh - 5.2rem);
+    height: calc(100vh - 5.2rem - 2.2rem);
     left: 0;
 
     &.hidden {
@@ -107,6 +105,7 @@ main {
 @media screen and (min-width: 30rem) {
     .content-scroller-child {
         width: calc(100vw - 10rem);
+        height: calc(100vh - 2.2rem);
         left: $lsd-nav-desk-width;
         top: 0;
 

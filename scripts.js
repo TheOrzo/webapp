@@ -8,6 +8,7 @@ window.addEventListener('popstate', function () {
 window.addEventListener('load', function () {
     scrollToCurrentPanel();
     applyConfig();
+    initButtonListeners();
 })
 
 function scrollToCurrentPanel() {
@@ -78,6 +79,123 @@ function applyConfig() {
     loadHardwareConfig();
     loadSegmentConfig();
     loadScenes();
+}
+
+function initButtonListeners() {
+    
+}
+
+function hdwBtnAddHandler() {
+    const newTile = createHardware("New Output", -1, "");
+    const spacer = document.getElementById('lsd_hardware_container').querySelector(".spacer");
+    document.getElementById("lsd_hardware_container").insertBefore(newTile, spacer);
+}
+
+function createHardware(name, pin, count) {
+    const item = document.createElement("form");
+        item.classList.add("lsd-hardware-item");
+        item.innerHTML = `
+                <h2>${name}</h2>
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__touch"></span>
+                        <span class="mdc-button__label">delete</span>
+                    </button>
+                </div>
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__touch"></span>
+                        <span class="mdc-button__label">save</span>
+                    </button>
+                </div>
+                <div class="mdc-select mdc-select--outlined">
+                    <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                        <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span id="outlined-select-label" class="mdc-floating-label">Pick a GPIO Pin</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                        </span>
+                        <span class="mdc-select__selected-text-container">
+                        <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                        </span>
+                        <span class="mdc-select__dropdown-icon">
+                        <svg
+                            class="mdc-select__dropdown-icon-graphic"
+                            viewBox="7 10 10 5" focusable="false">
+                            <polygon
+                                class="mdc-select__dropdown-icon-inactive"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                fill="white"
+                                points="7 10 12 15 17 10">
+                            </polygon>
+                            <polygon
+                                class="mdc-select__dropdown-icon-active"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                fill="white"
+                                points="7 15 12 10 17 15">
+                            </polygon>
+                        </svg>
+                        </span>
+                    </div>
+                    <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                        <ul class="mdc-list">
+                            <li class="mdc-list-item" data-value="1">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 1</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="2">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 2</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="3">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 3</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="4">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 4</span>
+                            </li>
+                            <li class="mdc-list-item" data-value="5">
+                                <span class="mdc-list-item__ripple"></span>
+                                <span class="mdc-list-item__text">GPIO 5</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <label class="mdc-text-field mdc-text-field--outlined">
+                    <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="hwd_leds_lable">Set amount of LEDs</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <input  type="number" min="0" step="1" value="${count}" class="mdc-text-field__input" aria-labelledby="hwd_leds_lable">
+                </label>`;
+                
+        const list = item.querySelector(".mdc-list");
+        for (let li of list.children) {
+            if (li.getAttribute("data-value") == pin) {
+                li.classList.add("mdc-list-item--selected");
+            }
+        }
+        const select = mdc.select.MDCSelect.attachTo(item.querySelector(".mdc-select"));
+        select.listen('MDCSelect:change', () => {
+            item.getElementsByTagName('button')[0].style.visibility = "visible";
+            item.getElementsByTagName('button')[1].style.visibility = "visible";
+        });
+        const pins = mdc.textField.MDCTextField.attachTo(item.querySelector(".mdc-text-field"));
+        pins.listen('MDCTextField:change', () => {
+            item.getElementsByTagName('button')[0].style.visibility = "visible";
+            item.getElementsByTagName('button')[1].style.visibility = "visible";
+        });
+        return item;
 }
 
 function loadHardwareConfig() {
@@ -256,3 +374,16 @@ function loadScenes() {
 function sceneActivateButtonClick(id) {
     document.getElementById("scene" + id).classList.toggle("expanded");
 }
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }

@@ -57,7 +57,7 @@
                     <section class="content-scroller-child hidden" content="hardware">
                         <div class="lsd-hardware-wrapper">
                             <div class="lsd-hardware-container" id="lsd_hardware_container"></div>
-                            <button class="mdc-button mdc-button--leading lsd-hardware-wrapper-button">
+                            <button class="mdc-button mdc-button--leading lsd-hardware-wrapper-button" onclick="hdwBtnAddHandler()">
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
                                 <span class="mdc-button__label">ADD OUTPUT</span>
                             </button>
@@ -66,21 +66,13 @@
                     <section class="content-scroller-child hidden" content="segment">
                         <div class="lsd-segment-container">
                             Test Segment Container
-                            <label class="mdc-text-field mdc-text-field--outlined">
-                                <span class="mdc-notched-outline">
-                                  <span class="mdc-notched-outline__leading"></span>
-                                  <span class="mdc-notched-outline__notch">
-                                    <span class="mdc-floating-label" id="my-label-id">Your Name</span>
-                                  </span>
-                                  <span class="mdc-notched-outline__trailing"></span>
-                                </span>
-                                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-                              </label>
+                            
                         </div>
                     </section>
                     <section class="content-scroller-child hidden" content="settings">
                         <div class="lsd-settings-container">
                             Test Settings Container
+                            <a href="data:application/octet-stream;charset=utf-8;base64,eyJoYXJkd2FyZSI6W3sibmFtZSI6IkxlZnQgc3RyaXBlIiwicGluIjozLCJudW0iOjEwfSx7Im5hbWUiOiJSaWdodCBzdHJpcGUiLCJwaW4iOjUsIm51bSI6MTB9XSwic2VnbWVudHMiOlt7Im5hbWUiOiJTY2hyZWlidGlzY2giLCJzZWdtZW50cyI6W3siaGFyZHdhcmUiOjAsInN0YXJ0IjowLCJlbmQiOjEwfV19XSwic2NlbmVzIjpbeyJuYW1lIjoiU2NocmVpYnRpc2NoIHJvdCIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiI2ZmMDAwMCJ9XSwicGFuZWxDb2xvciI6IiNjYzMzMzMifSx7Im5hbWUiOiJTY2hyZWlidGlzY2ggYmxhdSIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiIzAwMDBmZiJ9XSwicGFuZWxDb2xvciI6IiMzMzMzY2MifV19">export settings</a>
                         </div>
                     </section>
                 </div>
