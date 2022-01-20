@@ -2,10 +2,13 @@
     display: grid;
     grid-column: 100vw;
 
+
     &-button {
+        --mdc-text-button-label-text-color: #000000;
         background-color: $lsd-primary;
         justify-self: center;
         width: 90%;
+        color: $lsd-on-primary;
     }
 }
 
@@ -25,7 +28,7 @@
     border-radius: 3px;
     display: grid;
     align-items: center;
-    grid-template-columns: auto 5rem 5rem;
+    grid-template-columns: auto 5rem 3rem;
     background-color: lighten($lsd-background, 5%);
     padding-left: 1rem;
     padding-right: 1rem;
@@ -71,15 +74,19 @@
 
 
     &-delete {
-        background-color: #893b3b;
+        background-color: var(--mdc-theme-error);
         border: none;
         border-radius: 10%;
+        padding-right: 0;
+        margin-left: -1rem;
     }
 
     &-save {
         background-color: #2f6e2f;
         border: none;
         border-radius: 10%;
+        visibility: hidden;
+        margin-left: -1rem;
     }
 
     .mdc-select {
@@ -103,12 +110,6 @@
 
     h4 {
         font-weight: normal;
-    }
-
-    button {
-        width: 4rem;
-        justify-self: end;
-        visibility: hidden;
     }
 
     &.spacer {

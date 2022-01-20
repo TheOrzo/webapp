@@ -19,6 +19,12 @@
 
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
+
+    <!-- Color picker depenencies -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/> <!-- 'classic' theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css"/> <!-- 'monolith' theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/> <!-- 'nano' theme -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
 </head>
 
 <body>
@@ -54,10 +60,68 @@
                             </button>
                         </div>
                     </section>
+                    <section class="content-scroller-child hidden" id="lsd_scene_editor" content="scene-edit">
+                        <div class="lsd-scene-edit-wrapper">
+                            
+                            <div class="lsd-scene-edit-navigator">
+                                <button class="mdc-button mdc-button--raised">
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_back</i>
+                                </button>
+                                <p contentEditable="true" id="lsd-scene-editor-name">Scene Name</p>
+                                <button class="mdc-button mdc-button--raised">
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">save</i>
+                                </button>
+                            </div>
+                            <p class="lsd-scene-editor-error hidden" id="lsd_scene_editor_error"></p>
+                            <div class="lsd-scene-editor-animation mdc-select mdc-select--outlined hidden">
+                                <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                                  <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__notch">
+                                      <span id="outlined-select-label" class="mdc-floating-label">Pick an animation</span>
+                                    </span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                  </span>
+                                  <span class="mdc-select__selected-text-container">
+                                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                  </span>
+                                  <span class="mdc-select__dropdown-icon">
+                                    <svg
+                                        class="mdc-select__dropdown-icon-graphic"
+                                        viewBox="7 10 10 5" focusable="false">
+                                      <polygon
+                                          class="mdc-select__dropdown-icon-inactive"
+                                          stroke="none"
+                                          fill-rule="evenodd"
+                                          fill="white"
+                                          points="7 10 12 15 17 10">
+                                      </polygon>
+                                      <polygon
+                                          class="mdc-select__dropdown-icon-active"
+                                          stroke="none"
+                                          fill-rule="evenodd"
+                                          fill="white"
+                                          points="7 15 12 10 17 15">
+                                      </polygon>
+                                    </svg>
+                                  </span>
+                                </div>
+                              
+                                <!-- Other elements from the select remain. -->
+                                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                                    <ul class="mdc-list" id="lsd_scene_editor_animation_list">
+                                    </ul>
+                                </div>
+                              </div>
+                            <div class="lsd-scene-editor-options" id="lsd_scene_editor_options"></div>
+
+                        </div>
+                    </section>
                     <section class="content-scroller-child hidden" content="hardware">
                         <div class="lsd-hardware-wrapper">
                             <div class="lsd-hardware-container" id="lsd_hardware_container"></div>
-                            <button class="mdc-button mdc-button--leading lsd-hardware-wrapper-button" onclick="hdwBtnAddHandler()">
+                            <button class="mdc-button mdc-button--leading lsd-hardware-wrapper-button"
+                                onclick="hdwBtnAddHandler()">
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
                                 <span class="mdc-button__label">ADD OUTPUT</span>
                             </button>
@@ -72,7 +136,9 @@
                     <section class="content-scroller-child hidden" content="settings">
                         <div class="lsd-settings-container">
                             Test Settings Container
-                            <a href="data:application/octet-stream;charset=utf-8;base64,eyJoYXJkd2FyZSI6W3sibmFtZSI6IkxlZnQgc3RyaXBlIiwicGluIjozLCJudW0iOjEwfSx7Im5hbWUiOiJSaWdodCBzdHJpcGUiLCJwaW4iOjUsIm51bSI6MTB9XSwic2VnbWVudHMiOlt7Im5hbWUiOiJTY2hyZWlidGlzY2giLCJzZWdtZW50cyI6W3siaGFyZHdhcmUiOjAsInN0YXJ0IjowLCJlbmQiOjEwfV19XSwic2NlbmVzIjpbeyJuYW1lIjoiU2NocmVpYnRpc2NoIHJvdCIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiI2ZmMDAwMCJ9XSwicGFuZWxDb2xvciI6IiNjYzMzMzMifSx7Im5hbWUiOiJTY2hyZWlidGlzY2ggYmxhdSIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiIzAwMDBmZiJ9XSwicGFuZWxDb2xvciI6IiMzMzMzY2MifV19">export settings</a>
+                            <a
+                                href="data:application/octet-stream;charset=utf-8;base64,eyJoYXJkd2FyZSI6W3sibmFtZSI6IkxlZnQgc3RyaXBlIiwicGluIjozLCJudW0iOjEwfSx7Im5hbWUiOiJSaWdodCBzdHJpcGUiLCJwaW4iOjUsIm51bSI6MTB9XSwic2VnbWVudHMiOlt7Im5hbWUiOiJTY2hyZWlidGlzY2giLCJzZWdtZW50cyI6W3siaGFyZHdhcmUiOjAsInN0YXJ0IjowLCJlbmQiOjEwfV19XSwic2NlbmVzIjpbeyJuYW1lIjoiU2NocmVpYnRpc2NoIHJvdCIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiI2ZmMDAwMCJ9XSwicGFuZWxDb2xvciI6IiNjYzMzMzMifSx7Im5hbWUiOiJTY2hyZWlidGlzY2ggYmxhdSIsInNlZ21lbnRzIjpbMF0sImFuaW1hdGlvbiI6W3sibmFtZSI6InN0YXRpYyIsImNvbG9yIjoiIzAwMDBmZiJ9XSwicGFuZWxDb2xvciI6IiMzMzMzY2MifV19">export
+                                settings</a>
                         </div>
                     </section>
                 </div>

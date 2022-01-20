@@ -1,0 +1,115 @@
+#lsd_scene_editor {
+    background-color: $lsd-background;
+    z-index: 2;
+}
+
+.lsd-scene-edit-wrapper {
+    padding: .5rem;
+
+    .lsd-scene-edit-navigator .mdc-button--raised:not(:disabled) {
+        background-color: $lsd-background-bright;
+    }
+
+    .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__leading, .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__notch, .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__trailing {
+        border-color: $lsd-on-background;
+    }
+    .mdc-select:not(.mdc-select--disabled) .mdc-floating-label {
+        color: $lsd-on-background;
+    }
+
+    .mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+        color: $lsd-on-background;
+    }
+
+    .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+        color: $lsd-on-background;
+    }
+
+    .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+        color: $lsd-on-background;
+    }
+
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+        border-color: $lsd-on-background;
+    }    
+
+    .hidden {
+        display: none;
+    }
+}
+
+.lsd-scene-editor-error {
+    color: var(--mdc-theme-error);
+    padding: 2rem;
+    padding-top: 0;
+}
+
+.lsd-scene-edit-navigator {
+    display: flex;
+    justify-content: space-between;
+
+    .mdc-button--raised .mdc-button__icon, .mdc-button--unelevated .mdc-button__icon, .mdc-button--outlined .mdc-button__icon {
+        margin: 0;
+    }
+
+    .mdc-button--raised:not(:disabled) {
+        background-color: $lsd-background;
+    }
+}
+
+.lsd-scene-editor-animation {
+    width: 100%;
+
+    :not(.mdc-list-item--disabled).mdc-list-item {
+        background-color: $lsd-background;
+    }
+    
+}
+
+.lsd-scene-editor-options {
+    padding: .5rem;
+
+    .title {
+        justify-self: start;
+        align-self: center;
+        color: $lsd-secondary;
+        padding: 0;
+        margin: .5rem;
+        margin-left: 0;
+    }
+
+    .name {
+        justify-self: start;
+        align-self: center;
+        padding: 0;
+        margin: 0;
+        margin: .5rem;
+        margin-left: 0;
+    }
+
+    &-panel {
+        border-radius: 3%;
+        display: grid;
+        grid-template-columns: 7rem auto;
+        align-content: center;
+        justify-content: start;
+        background-color: $lsd-background-bright;
+        padding: .5rem 1rem 1rem 1rem;
+        margin: .5rem .5rem 0 0;
+    }
+}
+
+.lsd-scene-editor-options-panel-attributes {
+    grid-column: span 2;
+    border-radius: 1%;
+    overflow: hidden;
+    padding-top: .3rem;
+
+    .pickr {
+        display: none;
+    }
+    .pcr-app {
+        background-color: $lsd-background;
+        padding: .6rem;
+    }
+}
