@@ -123,7 +123,7 @@ function createHardware(name, pin, count) {
                     <button class="mdc-button mdc-button--touch lsd-hardware-item-delete">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__touch"></span>
-                        <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+                        <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
                     </button>
                 </div>
                 <div class="mdc-select mdc-select--outlined">
@@ -206,7 +206,7 @@ function createHardware(name, pin, count) {
         item.getElementsByTagName('button')[0].style.visibility = "visible";
     });
     const pins = mdc.textField.MDCTextField.attachTo(item.querySelector(".mdc-text-field"));
-    pins.listen('MDCTextField:change', () => {
+    item.addEventListener('input', () => {
         item.getElementsByTagName('button')[0].style.visibility = "visible";
     });
     return item;
@@ -337,16 +337,16 @@ function loadSceneEdit(id) {
         for (let option of animationTemplates.animations[id].options) {
             const panel = document.createElement('div');
             panel.classList.add("lsd-scene-editor-options-panel");
-            const name = document.createElement('h2');
-            name.classList.add("name");
-            name.innerText = option.name;
-            panel.appendChild(name);
             const attributePanel = document.createElement("div");
             attributePanel.classList.add("lsd-scene-editor-options-panel-attributes")
             panel.appendChild(attributePanel);
             editor.appendChild(panel);
             switch (option.type) {
                 case "color":
+                    const label = document.createElement('span');
+                    label.innerText = option.name;
+                    label.classList.add("lsd-scene-editor-options-panel-attributes-label");
+                    attributePanel.appendChild(label);
                     const colorDiv = document.createElement('div');
                     colorDiv.classList.add("lsd-scene-editor-options-panel-attributes-colorPicker");
                     attributePanel.appendChild(colorDiv);
@@ -378,11 +378,11 @@ function loadSceneEdit(id) {
                             <span class="mdc-notched-outline">
                             <span class="mdc-notched-outline__leading"></span>
                             <span class="mdc-notched-outline__notch">
-                                <span class="mdc-floating-label" id="lsd-scene-editor-options-panel-attributes-int-${option.name}">numeric value</span>
+                                <span class="mdc-floating-label" id="lsd-scene-editor-options-panel-attributes-int-${option.name}">delay [ms]</span>
                             </span>
                                 <span class="mdc-notched-outline__trailing"></span>
                             </span>
-                            <input type="text" class="mdc-text-field__input" aria-labelledby="lsd-scene-editor-options-panel-attributes-int-${option.name}" value="${option.value}">
+                            <input type="number" min="0" step="1" class="mdc-text-field__input" aria-labelledby="lsd-scene-editor-options-panel-attributes-int-${option.name}" value="${option.value}">
                         </label>
                     `;
                     attributePanel.appendChild(inputDiv);

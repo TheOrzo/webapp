@@ -34,6 +34,11 @@
     padding-right: 1rem;
     padding-bottom: .5rem;
 
+
+    :not(.mdc-list-item--disabled).mdc-list-item {
+        background-color: $lsd-background-bright;
+    }
+
     .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
         color: $lsd-on-background;
         border-color: $lsd-on-background;
@@ -72,7 +77,6 @@
         border-color: $lsd-secondary;
     }
 
-
     &-delete {
         background-color: var(--mdc-theme-error);
         border: none;
@@ -82,7 +86,8 @@
     }
 
     &-save {
-        background-color: #2f6e2f;
+        --mdc-text-button-label-text-color: #000000;
+        background-color: $lsd-primary;
         border: none;
         border-radius: 10%;
         visibility: hidden;

@@ -13,6 +13,9 @@
     .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__leading, .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__notch, .mdc-select--outlined:not(.mdc-select--disabled) .mdc-notched-outline__trailing {
         border-color: $lsd-on-background;
     }
+    .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__leading, .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__notch, .mdc-select--outlined:not(.mdc-select--disabled):not(.mdc-select--focused) .mdc-select__anchor:hover .mdc-notched-outline .mdc-notched-outline__trailing {
+        border-color: $lsd-on-background;
+    }
     .mdc-select:not(.mdc-select--disabled) .mdc-floating-label {
         color: $lsd-on-background;
     }
@@ -31,7 +34,11 @@
 
     .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
         border-color: $lsd-on-background;
-    }    
+    }   
+
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing {
+        border-color: $lsd-on-background;
+    }
 
     .hidden {
         display: none;
@@ -88,7 +95,7 @@
     }
 
     &-panel {
-        border-radius: 3%;
+        border-radius: 10px;
         display: grid;
         grid-template-columns: 7rem auto;
         align-content: center;
@@ -96,20 +103,28 @@
         background-color: $lsd-background-bright;
         padding: .5rem 1rem 1rem 1rem;
         margin: .5rem .5rem 0 0;
-    }
-}
 
-.lsd-scene-editor-options-panel-attributes {
-    grid-column: span 2;
-    border-radius: 1%;
-    overflow: hidden;
-    padding-top: .3rem;
+        &-attributes {
+            grid-column: span 2;
+            border-radius: 5px;
+            overflow: hidden;
+            padding-top: .3rem;
+            width: 100%;
+            justify-self: center;
 
-    .pickr {
-        display: none;
-    }
-    .pcr-app {
-        background-color: $lsd-background;
-        padding: .6rem;
+            &-label {
+                font-size: .8rem;
+                padding: 0 0 .5rem .5rem;
+                color: $lsd-on-background;
+            }
+        
+            .pickr {
+                display: none;
+            }
+            .pcr-app {
+                background-color: $lsd-background;
+                padding: .6rem;
+            }
+        }
     }
 }
