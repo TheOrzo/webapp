@@ -698,8 +698,25 @@ footer a {
   background-color: #1d1e1f;
 }
 
+.lsd-scene-editor-segment {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.lsd-scene-editor-segment :not(.mdc-list-item--disabled).mdc-list-item {
+  background-color: #1d1e1f;
+}
+
 .lsd-scene-editor-options {
   padding: .5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .lsd-scene-editor-options .title {

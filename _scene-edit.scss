@@ -73,8 +73,21 @@
     
 }
 
+.lsd-scene-editor-segment {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    :not(.mdc-list-item--disabled).mdc-list-item {
+        background-color: $lsd-background;
+    }
+    
+}
+
 .lsd-scene-editor-options {
     padding: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
     .title {
         justify-self: start;

@@ -1,19 +1,20 @@
 const mobileMaxSize = 480; // size in px (= 30rem)
-var config = JSON.parse('{"hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","segments":[{"hardware":0,"start":0,"end":10}]}],"scenes":[{"name":"Schreibtisch rot","segments":[0],"animation":[{"name":"static","color":"#ff0000"}],"panelColor":"#cc3333"},{"name":"Schreibtisch blau","segments":[0],"animation":[{"name":"static","color":"#0000ff"}],"panelColor":"#3333cc"}]}');
+var config = JSON.parse('{"version":"1.0.0","hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","components":[{"hardware":0,"start":0,"end":10}]},{"name":"Bett","segments":[{"hardware":0,"start":11,"end":50}]}],"scenes":[{"name":"Schreibtisch rot","level":100,"segments":[{"id":0,"animation":{"id":1,"color":"#ff0000"}}],"panelColor":"#cc3333"}]}');
 const animationTemplates = JSON.parse(`{"animations":[
-                                       {"name":"static","options":[{"name":"color","type":"color","value":"#F00"}]},
-                                       {"name":"transition","options":[{"name":"color 1","type":"color","value":"#F00"},{"name":"color 2","type":"color","value":"#0F0"}]},
-                                       {"name":"fade","options":[{"name":"delay[ms]","type":"int","value":"1000"},{"name":"color 1","type":"color","value":"#00F"},{"name":"color 2","type":"color","value":"#0FF"}]}]}`);
+                                       {"name":"none"},
+                                       {"name":"static","options":[{"name":"color","type":"color"}],"defaults":{"color":"#FFF"}},
+                                       {"name":"transition","options":[{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"color 1":"#F00","color 2":"#0F0"}},
+                                       {"name":"fade","options":[{"name":"delay[ms]","type":"int"},{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"delay[ms]":"1000","color 1":"#00F","color 2":"#0FF"}}]}`);
 
 window.addEventListener('popstate', function () {
     scrollToCurrentPanel();
-})
+});
 
 window.addEventListener('load', function () {
     scrollToCurrentPanel();
     applyConfig();
     initButtonListeners();
-})
+});
 
 function scrollToCurrentPanel() {
     if (window.location.hash == '') {
@@ -233,6 +234,7 @@ function loadSegmentConfig() {
 
 function loadScenes() {
     var container = document.getElementById("lsd_scene_container");
+    container.innerHTML = "";
     for (i = 0; i < config.scenes.length; i++) {
         const item = document.createElement("div");
         item.classList.add("lsd-scene-item");
@@ -294,27 +296,42 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-function loadSceneEdit(id) {
+// id: ID of Scene in synced config json
+function loadSceneEdit(scene) {
     const scenes_container = document.getElementById("lsd_scene_editor");
-    const errorField = document.getElementById("lsd_scene_editor_error");
-    const selectAnimationElmt = scenes_container.querySelector(".mdc-select");
-    const list = document.getElementById("lsd_scene_editor_animation_list");
+    const selectSegmentElmt = scenes_container.querySelectorAll(".mdc-select")[0];
+    const selectAnimationElmt = scenes_container.querySelectorAll(".mdc-select")[1];
+    const segmentsList = document.getElementById("lsd_scene_editor_segment_list");
+    const animationList = document.getElementById("lsd_scene_editor_animation_list");
     const editor = document.getElementById("lsd_scene_editor_options");
+    const sceneNameField = document.getElementById("lsd-scene-editor-name");
 
     // reset
-    errorField.classList.add("hidden");
-    selectAnimationElmt.classList.add("hidden");
-    list.innerHTML = "";
+    segmentsList.innerHTML = "";
+    animationList.innerHTML = "";
     editor.innerHTML = "";
 
-    if (config.scenes[id] == null) {
-        errorField.innerText = "Scene could not be found";
-        errorField.classList.remove("hidden");
+    if (config.scenes[scene] == null) {
+        // todo show error message
         return;
+    }
+
+    // build segments list
+    id = 0;
+    for (let li of config["segments"]) {
+        const listItem = document.createElement('li');
+        listItem.classList.add("mdc-list-item");
+        listItem.setAttribute("data-value", id++);
+        const listItemText = document.createElement('span');
+        listItemText.classList.add("mdc-list-item__text");
+        listItemText.textContent = li.name;
+        listItem.appendChild(listItemText);
+        segmentsList.appendChild(listItem);
     }
 
     // build animation list
     id = 0;
+    animationId = 0;
     for (let li of animationTemplates.animations) {
         const listItem = document.createElement('li');
         listItem.classList.add("mdc-list-item");
@@ -323,72 +340,162 @@ function loadSceneEdit(id) {
         listItemText.classList.add("mdc-list-item__text");
         listItemText.textContent = li.name;
         listItem.appendChild(listItemText);
-        list.appendChild(listItem);
+        animationList.appendChild(listItem);
     }
+
+    // initiate segment select menu
+    selectSegmentElmt.classList.remove("hidden");
+    const selectSegment = mdc.select.MDCSelect.attachTo(selectSegmentElmt);
+    selectSegment.listen('MDCSelect:change', (event) => {
+        segmentIndex = findSceneSegmentIndex(scene, event.detail.value);
+        if (segmentIndex == -1) {
+            selectAnimation.selectedIndex = 0
+        } else {
+            selectAnimation.selectedIndex = config.scenes[scene].segments[segmentIndex].animation.id;
+        }
+    });
 
     // initiate animation select menu
     selectAnimationElmt.classList.remove("hidden");
     const selectAnimation = mdc.select.MDCSelect.attachTo(selectAnimationElmt);
     selectAnimation.listen('MDCSelect:change', (event) => {
-        // clean options
-        editor.innerHTML = "";
-        // build options
-        id = event.detail.value;
-        for (let option of animationTemplates.animations[id].options) {
-            const panel = document.createElement('div');
-            panel.classList.add("lsd-scene-editor-options-panel");
-            const attributePanel = document.createElement("div");
-            attributePanel.classList.add("lsd-scene-editor-options-panel-attributes")
-            panel.appendChild(attributePanel);
-            editor.appendChild(panel);
-            switch (option.type) {
-                case "color":
-                    const label = document.createElement('span');
-                    label.innerText = option.name;
-                    label.classList.add("lsd-scene-editor-options-panel-attributes-label");
-                    attributePanel.appendChild(label);
-                    const colorDiv = document.createElement('div');
-                    colorDiv.classList.add("lsd-scene-editor-options-panel-attributes-colorPicker");
-                    attributePanel.appendChild(colorDiv);
-                    const pickr = Pickr.create({
-                        el: '.lsd-scene-editor-options-panel-attributes-colorPicker',
-                        theme: 'nano', // or 'monolith', or 'nano'
-
-                        components: {
-                            // Main components
-                            preview: true,
-                            hue: true,
-                        },
-
-                        interaction: {
-                            hex: true,
-
-                            input: true,
-                        },
-
-                        default: option.value,
-                        inline: true,
-                        showAlways: true,
-                    });
-                    break;
-                case "int":
-                    const inputDiv = document.createElement('div');
-                    inputDiv.innerHTML = `
-                        <label class="mdc-text-field mdc-text-field--outlined">
-                            <span class="mdc-notched-outline">
-                            <span class="mdc-notched-outline__leading"></span>
-                            <span class="mdc-notched-outline__notch">
-                                <span class="mdc-floating-label" id="lsd-scene-editor-options-panel-attributes-int-${option.name}">delay [ms]</span>
-                            </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input type="number" min="0" step="1" class="mdc-text-field__input" aria-labelledby="lsd-scene-editor-options-panel-attributes-int-${option.name}" value="${option.value}">
-                        </label>
-                    `;
-                    attributePanel.appendChild(inputDiv);
-                    mdc.textField.MDCTextField.attachTo(inputDiv.querySelector('.mdc-text-field'));
-                    break;
-            }
-        }
+        loadSceneEditOptions(scene, selectSegment.selectedIndex, selectAnimation.selectedIndex);
     });
+
+    // select first defined segment or index 0
+    if (config.scenes[scene].segments[0].id != null) {
+        selectSegment.selectedIndex = config.scenes[scene].segments[0].id;
+        selectAnimation.selectedIndex = config.scenes[scene].segments[0].animation.id;
+    } else {
+        selectSegment.selectedIndex = 0;
+        selectAnimation.selectedIndex = 0;
+    }
+
+    //load scene name
+    sceneNameField.textContent = config.scenes[scene].name;
+    if (animationId != 0) {
+        loadSceneEditOptions(scene, selectSegment.selectedIndex, animationId);
+    }
+}
+
+// id: animation id
+// scene: scene id
+function loadSceneEditOptions(sceneId, segmentId, animationId) {
+    const editor = document.getElementById("lsd_scene_editor_options");
+    // find where segment is located in scene's segment list
+    segmentIndex = findSceneSegmentIndex(sceneId, segmentId);
+    // clean options
+    editor.innerHTML = "";
+    if (animationId == 0) {
+        config.scenes[sceneId].segments.splice(segmentIndex,segmentIndex+1);
+        return;
+    }
+
+    // if there is no a configuration for this segment => create one
+    if (segmentIndex == -1) {
+        segmentIndex = config.scenes[sceneId].segments.length;
+        config.scenes[sceneId].segments[segmentIndex] = {id:segmentId,animation:{id:-1}};
+    }
+
+    // check if config options corresponds to selected animation
+    if (config.scenes[sceneId].segments[segmentIndex].animation.id != animationId) {
+        config.scenes[sceneId].segments[segmentIndex].animation = Object.assign({}, animationTemplates.animations[animationId].defaults);
+        config.scenes[sceneId].segments[segmentIndex].animation.id = animationId;
+    }
+
+    animation = config.scenes[sceneId].segments[segmentIndex].animation;
+
+    // build options
+    for (let option of animationTemplates.animations[animationId].options) {
+        const panel = document.createElement('div');
+        panel.classList.add("lsd-scene-editor-options-panel");
+        const attributePanel = document.createElement("div");
+        attributePanel.classList.add("lsd-scene-editor-options-panel-attributes")
+        panel.appendChild(attributePanel);
+        editor.appendChild(panel);
+        switch (option.type) {
+            case "color":
+                const label = document.createElement('span');
+                label.innerText = option.name;
+                label.classList.add("lsd-scene-editor-options-panel-attributes-label");
+                attributePanel.appendChild(label);
+                const colorDiv = document.createElement('div');
+                colorDiv.classList.add("lsd-scene-editor-options-panel-attributes-colorPicker");
+                attributePanel.appendChild(colorDiv);
+                const pickr = Pickr.create({
+                    el: '.lsd-scene-editor-options-panel-attributes-colorPicker',
+                    theme: 'nano', // or 'monolith', or 'nano'
+
+                    components: {
+                        // Main components
+                        preview: true,
+                        hue: true,
+                    },
+
+                    interaction: {
+                        hex: true,
+
+                        input: true,
+                    },
+
+                    default: animation[option.name],
+                    inline: true,
+                    showAlways: true,
+                });
+                pickr.optionName = option.name;
+                pickr.on("changestop", (eventSource, PickrInstance) => {
+                    onSceneOptionChange(sceneId, segmentIndex, PickrInstance.optionName, PickrInstance.getColor().toHEXA().toString());
+                });
+                break;
+            case "int":
+                const inputDiv = document.createElement('div');
+                inputDiv.innerHTML = `
+                    <label class="mdc-text-field mdc-text-field--outlined">
+                        <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                            <span class="mdc-floating-label" id="lsd-scene-editor-options-panel-attributes-int-${option.name}">delay [ms]</span>
+                        </span>
+                            <span class="mdc-notched-outline__trailing"></span>
+                        </span>
+                        <input type="number" min="0" step="1" class="mdc-text-field__input" aria-labelledby="lsd-scene-editor-options-panel-attributes-int-${option.name}" value="${animation[option.name]}" onchange='onSceneOptionChange(${sceneId}, ${segmentIndex},"${option.name}", event.target.value)'>
+                    </label>
+                `;
+                attributePanel.appendChild(inputDiv);
+                mdc.textField.MDCTextField.attachTo(inputDiv.querySelector('.mdc-text-field'));
+                break;
+        }
+    }
+}
+
+function findSceneSegmentIndex(sceneId, segmentId) {
+    // find where segment is located in scene's segment list
+    segmentIndex = -1;
+    for (i = 0; i < config.scenes[sceneId].segments.length; i++) {
+        if (config.scenes[sceneId].segments[i] != null && config.scenes[sceneId].segments[i].id == segmentId) {
+            segmentIndex = i;
+        }
+    }
+    return segmentIndex;
+}
+
+function onSceneOptionChange(sceneId, segmentIndex, name, value) {
+    config.scenes[sceneId].segments[segmentIndex].animation[name] = value;
+    loadScenes();
+}
+
+function onSceneNameChange() {
+    sceneId = window.location.hash.substring("#scene-edit-".length);
+    config.scenes[sceneId].name = document.getElementById("lsd-scene-editor-name").textContent;
+    loadScenes();
+}
+
+function deleteOpenedScene() {
+    sceneId = window.location.hash.substring("#scene-edit-".length);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://10.3.3.58/config", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send('{"scene":' + JSON.stringify(config.scenes[sceneId]) + '}');
 }

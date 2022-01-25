@@ -62,57 +62,96 @@
                     </section>
                     <section class="content-scroller-child hidden" id="lsd_scene_editor" content="scene-edit">
                         <div class="lsd-scene-edit-wrapper">
-                            
+                            <!-- Scene edit top bar -->
                             <div class="lsd-scene-edit-navigator">
-                                <button class="mdc-button mdc-button--raised">
+                                <button class="mdc-button mdc-button--raised" onclick="history.back();">
                                     <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_back</i>
                                 </button>
-                                <p contentEditable="true" id="lsd-scene-editor-name">Scene Name</p>
-                                <button class="mdc-button mdc-button--raised">
-                                    <i class="material-icons mdc-button__icon" aria-hidden="true">save</i>
+                                <p contentEditable="true" id="lsd-scene-editor-name" onblur='onSceneNameChange();'>Scene Name</p>
+                                <button class="mdc-button mdc-button--raised" onclick="deleteOpenedScene();">
+                                    <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
                                 </button>
                             </div>
-                            <p class="lsd-scene-editor-error hidden" id="lsd_scene_editor_error"></p>
+                            <!-- segment selector -->
+                            <div class="lsd-scene-editor-segment mdc-select mdc-select--outlined hidden">
+                                <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__notch">
+                                            <span id="outlined-select-label" class="mdc-floating-label">Select a segment</span>
+                                        </span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <span class="mdc-select__selected-text-container">
+                                        <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                    </span>
+                                    <span class="mdc-select__dropdown-icon">
+                                        <svg
+                                            class="mdc-select__dropdown-icon-graphic"
+                                            viewBox="7 10 10 5" focusable="false">
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-inactive"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            fill="white"
+                                            points="7 10 12 15 17 10">
+                                        </polygon>
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-active"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            fill="white"
+                                            points="7 15 12 10 17 15">
+                                        </polygon>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                                    <ul class="mdc-list" id="lsd_scene_editor_segment_list">
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- end segment selector-->
+                            <!-- animation selector -->
                             <div class="lsd-scene-editor-animation mdc-select mdc-select--outlined hidden">
                                 <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
-                                  <span class="mdc-notched-outline">
-                                    <span class="mdc-notched-outline__leading"></span>
-                                    <span class="mdc-notched-outline__notch">
-                                      <span id="outlined-select-label" class="mdc-floating-label">Pick an animation</span>
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__notch">
+                                            <span id="outlined-select-label" class="mdc-floating-label">Pick an animation</span>
+                                        </span>
+                                        <span class="mdc-notched-outline__trailing"></span>
                                     </span>
-                                    <span class="mdc-notched-outline__trailing"></span>
-                                  </span>
-                                  <span class="mdc-select__selected-text-container">
-                                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
-                                  </span>
-                                  <span class="mdc-select__dropdown-icon">
-                                    <svg
-                                        class="mdc-select__dropdown-icon-graphic"
-                                        viewBox="7 10 10 5" focusable="false">
-                                      <polygon
-                                          class="mdc-select__dropdown-icon-inactive"
-                                          stroke="none"
-                                          fill-rule="evenodd"
-                                          fill="white"
-                                          points="7 10 12 15 17 10">
-                                      </polygon>
-                                      <polygon
-                                          class="mdc-select__dropdown-icon-active"
-                                          stroke="none"
-                                          fill-rule="evenodd"
-                                          fill="white"
-                                          points="7 15 12 10 17 15">
-                                      </polygon>
-                                    </svg>
-                                  </span>
+                                    <span class="mdc-select__selected-text-container">
+                                        <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                    </span>
+                                    <span class="mdc-select__dropdown-icon">
+                                        <svg
+                                            class="mdc-select__dropdown-icon-graphic"
+                                            viewBox="7 10 10 5" focusable="false">
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-inactive"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            fill="white"
+                                            points="7 10 12 15 17 10">
+                                        </polygon>
+                                        <polygon
+                                            class="mdc-select__dropdown-icon-active"
+                                            stroke="none"
+                                            fill-rule="evenodd"
+                                            fill="white"
+                                            points="7 15 12 10 17 15">
+                                        </polygon>
+                                        </svg>
+                                    </span>
                                 </div>
-                              
-                                <!-- Other elements from the select remain. -->
                                 <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
                                     <ul class="mdc-list" id="lsd_scene_editor_animation_list">
                                     </ul>
                                 </div>
-                              </div>
+                            </div>
+                            <!-- end animation selector-->
                             <div class="lsd-scene-editor-options" id="lsd_scene_editor_options"></div>
 
                         </div>
