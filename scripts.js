@@ -1,10 +1,15 @@
 const mobileMaxSize = 480; // size in px (= 30rem)
-var config = JSON.parse('{"version":"1.0.0","hardware":[{"name":"Left stripe","pin":3,"num":10},{"name":"Right stripe","pin":5,"num":10}],"segments":[{"name":"Schreibtisch","components":[{"hardware":0,"start":0,"end":10}]},{"name":"Bett","segments":[{"hardware":0,"start":11,"end":50}]}],"scenes":[{"name":"Schreibtisch rot","level":100,"segments":[{"id":0,"animation":{"id":1,"color":"#ff0000"}}],"panelColor":"#cc3333"}]}');
+var config;
 const animationTemplates = JSON.parse(`{"animations":[
                                        {"name":"none"},
-                                       {"name":"static","options":[{"name":"color","type":"color"}],"defaults":{"color":"#FFF"}},
-                                       {"name":"transition","options":[{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"color 1":"#F00","color 2":"#0F0"}},
-                                       {"name":"fade","options":[{"name":"delay[ms]","type":"int"},{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"delay[ms]":"1000","color 1":"#00F","color 2":"#0FF"}}]}`);
+                                       {"name":"static","options":[{"name":"color","type":"color"}],"defaults":{"color":0}},
+                                       {"name":"transition","options":[{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"color 1":0,"color 2":0}},
+                                       {"name":"fade","options":[{"name":"delay[ms]","type":"int"},{"name":"color 1","type":"color"},{"name":"color 2","type":"color"}],"defaults":{"delay[ms]":"1000","color 1":0,"color 2":0}}]}`);
+
+
+document.addEventListener("DOMContentLoaded", function(){
+    requestConfig();    
+});
 
 window.addEventListener('popstate', function () {
     scrollToCurrentPanel();
@@ -12,7 +17,6 @@ window.addEventListener('popstate', function () {
 
 window.addEventListener('load', function () {
     scrollToCurrentPanel();
-    applyConfig();
     initButtonListeners();
 });
 
@@ -82,14 +86,18 @@ function scrollerItemRemoveAnimationClasses(element) {
 }
 
 function requestConfig() {
-    fetch('http://jsonplaceholder.typicode.com/users', {
-        method: 'GET'
-    })
-        .then(function (response) { return response.json(); })
-        .then(function (json) {
-            config = json;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            config = JSON.parse(this.responseText);
             applyConfig();
-        });
+        }
+    };
+    xhr.open("GET", "http://10.3.3.58/config", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send();
 }
 
 function applyConfig() {
@@ -347,11 +355,19 @@ function loadSceneEdit(scene) {
     selectSegmentElmt.classList.remove("hidden");
     const selectSegment = mdc.select.MDCSelect.attachTo(selectSegmentElmt);
     selectSegment.listen('MDCSelect:change', (event) => {
-        segmentIndex = findSceneSegmentIndex(scene, event.detail.value);
+        sceneId = window.location.hash.substring("#scene-edit-".length);
+        segmentIndex = findSceneSegmentIndex(sceneId, event.detail.value);
         if (segmentIndex == -1) {
-            selectAnimation.selectedIndex = 0
+            animationIndex = 0
         } else {
-            selectAnimation.selectedIndex = config.scenes[scene].segments[segmentIndex].animation.id;
+            animationIndex = config.scenes[sceneId].segments[segmentIndex].animation.id;
+        }
+        if (selectAnimation.selectedIndex == animationIndex) {
+            //trigger update manually
+            loadSceneEditOptions(sceneId, event.detail.value, animationIndex);
+        } else {
+            // selectAnimation will trigger update
+            selectAnimation.selectedIndex = animationIndex
         }
     });
 
@@ -359,7 +375,9 @@ function loadSceneEdit(scene) {
     selectAnimationElmt.classList.remove("hidden");
     const selectAnimation = mdc.select.MDCSelect.attachTo(selectAnimationElmt);
     selectAnimation.listen('MDCSelect:change', (event) => {
-        loadSceneEditOptions(scene, selectSegment.selectedIndex, selectAnimation.selectedIndex);
+        // todo es wird kein update getriggert falls zwei Segmente die gleiche Animation haben und die Select Box sich nicht ändert
+        sceneId = window.location.hash.substring("#scene-edit-".length);
+        loadSceneEditOptions(sceneId, selectSegment.selectedIndex, selectAnimation.selectedIndex);
     });
 
     // select first defined segment or index 0
@@ -378,9 +396,8 @@ function loadSceneEdit(scene) {
     }
 }
 
-// id: animation id
-// scene: scene id
 function loadSceneEditOptions(sceneId, segmentId, animationId) {
+    console.log("animationId: " +  animationId);
     const editor = document.getElementById("lsd_scene_editor_options");
     // find where segment is located in scene's segment list
     segmentIndex = findSceneSegmentIndex(sceneId, segmentId);
@@ -422,6 +439,7 @@ function loadSceneEditOptions(sceneId, segmentId, animationId) {
                 const colorDiv = document.createElement('div');
                 colorDiv.classList.add("lsd-scene-editor-options-panel-attributes-colorPicker");
                 attributePanel.appendChild(colorDiv);
+                defColor = ('#' + animation[option.name].toString(16).padStart(6, '0'))
                 const pickr = Pickr.create({
                     el: '.lsd-scene-editor-options-panel-attributes-colorPicker',
                     theme: 'nano', // or 'monolith', or 'nano'
@@ -438,13 +456,13 @@ function loadSceneEditOptions(sceneId, segmentId, animationId) {
                         input: true,
                     },
 
-                    default: animation[option.name],
+                    default: defColor,
                     inline: true,
                     showAlways: true,
                 });
                 pickr.optionName = option.name;
                 pickr.on("changestop", (eventSource, PickrInstance) => {
-                    onSceneOptionChange(sceneId, segmentIndex, PickrInstance.optionName, PickrInstance.getColor().toHEXA().toString());
+                    onSceneOptionChange(sceneId, segmentIndex, PickrInstance.optionName, PickrInstance.getColor().toHEXA().toString().substring(0,7));
                 });
                 break;
             case "int":
@@ -481,21 +499,22 @@ function findSceneSegmentIndex(sceneId, segmentId) {
 
 function onSceneOptionChange(sceneId, segmentIndex, name, value) {
     config.scenes[sceneId].segments[segmentIndex].animation[name] = value;
-    loadScenes();
-}
-
-function onSceneNameChange() {
-    sceneId = window.location.hash.substring("#scene-edit-".length);
-    config.scenes[sceneId].name = document.getElementById("lsd-scene-editor-name").textContent;
-    loadScenes();
-}
-
-function deleteOpenedScene() {
-    sceneId = window.location.hash.substring("#scene-edit-".length);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://10.3.3.58/config", true);
+    xhr.open("POST", "http://10.3.3.58/config", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.send('{"scene":' + JSON.stringify(config.scenes[sceneId]) + '}');
+    xhr.send('{"scene":' + sceneId + ',"content":' + JSON.stringify(config.scenes[sceneId]) + '}');
+    requestConfig();
+}
+
+function onSceneNameChange() {
+    // todo prevent double naming
+    sceneId = window.location.hash.substring("#scene-edit-".length);
+    config.scenes[sceneId].name = document.getElementById("lsd-scene-editor-name").textContent;
+    requestConfig();
+}
+
+function deleteOpenedScene() {
+
 }
