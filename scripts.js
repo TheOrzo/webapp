@@ -93,7 +93,7 @@ function requestConfig() {
             applyConfig();
         }
     };
-    xhr.open("GET", "http://10.3.3.58/config", true);
+    xhr.open("GET", "http://10.3.3.58/config", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
@@ -499,12 +499,7 @@ function findSceneSegmentIndex(sceneId, segmentId) {
 
 function onSceneOptionChange(sceneId, segmentIndex, name, value) {
     config.scenes[sceneId].segments[segmentIndex].animation[name] = value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://10.3.3.58/config", false);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.send('{"scene":' + sceneId + ',"content":' + JSON.stringify(config.scenes[sceneId]) + '}');
+    sendScene(sceneId);
     requestConfig();
 }
 
@@ -512,9 +507,19 @@ function onSceneNameChange() {
     // todo prevent double naming
     sceneId = window.location.hash.substring("#scene-edit-".length);
     config.scenes[sceneId].name = document.getElementById("lsd-scene-editor-name").textContent;
+    sendScene(sceneId);
     requestConfig();
 }
 
 function deleteOpenedScene() {
 
+}
+
+function sendScene(sceneId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://10.3.3.58/config", false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send('{"scene":' + sceneId + ',"content":' + JSON.stringify(config.scenes[sceneId]) + '}');
 }
