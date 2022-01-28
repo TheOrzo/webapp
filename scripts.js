@@ -95,6 +95,7 @@ function requestConfig() {
     };
     xhr.open("GET", "http://10.3.3.58/config", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Referrer-Policy', 'no-referrer-when-downgrade');
     xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.send();
