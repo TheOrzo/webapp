@@ -219,6 +219,10 @@ function createHardware(name, pin, count) {
     item.addEventListener('input', () => {
         item.getElementsByTagName('button')[0].style.visibility = "visible";
     });
+    const button = mdc.ripple.MDCRipple.attachTo(item.querySelector(".mdc-button"));
+    item.querySelector(".mdc-button").addEventListener('click', () => {
+        sendConfig();
+    });
     return item;
 }
 
@@ -406,6 +410,8 @@ function loadSceneEditOptions(sceneId, segmentId, animationId) {
     editor.innerHTML = "";
     if (animationId == 0) {
         config.scenes[sceneId].segments.splice(segmentIndex,segmentIndex+1);
+        sceneId = window.location.hash.substring("#scene-edit-".length);
+        sendScene(sceneId);
         return;
     }
 
@@ -518,9 +524,18 @@ function deleteOpenedScene() {
 
 function sendScene(sceneId) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://10.3.3.58/config", false);
+    xhr.open("POST", "http://10.3.3.58/scene", false);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.send('{"scene":' + sceneId + ',"content":' + JSON.stringify(config.scenes[sceneId]) + '}');
+}
+
+function sendConfig() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://10.3.3.58/config", false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send(JSON.stringify(config));
 }
